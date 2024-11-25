@@ -41,3 +41,26 @@ Modul untuk diskusi pengguna mengenai suatu produk
 
 6. **Promo (Rafli)📚**\
 Modul untuk melakukan CRUD pada promo-promo yang berlaku.
+
+---
+## _Role_ atau Peran Pengguna 💻
+
+1. **Admin**🧑‍💻👨‍💻\
+   Admin bertanggung jawab dalam menambahkan produk suvenir ke dalam aplikasi. Admin dapat mengunggah informasi-informasi tentang produk seperti deskripsi, harga, gambar produk, stok, kategori, dan lain-lain. Admin juga dapat memperbaharui dan menghapus produk dengan hak akses penuh, memastikan produk selalu akurat, faktual, dan terkini.
+
+2. **Pengguna**🥷💻\
+Pengguna umum dapat melihat produk yang tersedia dalam aplikasi dan melakukan filter berdasarkan kategori yang diinginkan, seperti kerajinan tangan, makanan khas, atau pakaian. Pengguna dibagi dua berdasarkan autentikasinya di dalam website:
+
+
+   a. **Pengguna yang belum ter-autentikasi:**
+      - Melakukan filter produk berdasarkan kategori produk
+      - Melihat produk pada halaman utama dan melihat detail produk
+
+
+   b. **Pengguna yang sudah ter-autentikasi:**
+      - Melakukan filter produk berdasarkan kategori produk
+      - Melihat produk pada halaman utama dan melihat detail produk
+      - Memberikan review dan rating pada produk
+      - Memiliki dashboard yang sudah dipersonalisasi berdasarkan data preferensi yang dimasukkan saat registrasi akun
+      - Membuka profil akun yang berisi data-data pribadi
+
