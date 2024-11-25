@@ -64,3 +64,13 @@ Pengguna umum dapat melihat produk yang tersedia dalam aplikasi dan melakukan fi
       - Memiliki dashboard yang sudah dipersonalisasi berdasarkan data preferensi yang dimasukkan saat registrasi akun
       - Membuka profil akun yang berisi data-data pribadi
 
+---
+## 🌐 Alur Pengintegrasian dengan Web Service 🛜
+
+1. Menambahkan dependensi http ke proyek untuk melakukan pertukaran HTTP request.
+2. Mengidentifikasi struktur data JSON yang akan diterima dari web service.
+3. Membuat model yang sesuai dengan respons data json dari web service.
+4. Melakukan HTTP request ke web service dengan menggunakan dependensi http.
+5. Menerima data JSON dari respons web service.
+6. Mengonversi json yang diterima dari web service menjadi model yang telah dibuat pada langkah kedua.
+7. Menggunakan widget FutureBuilder untuk memuat data secara asinkron di aplikasi.
