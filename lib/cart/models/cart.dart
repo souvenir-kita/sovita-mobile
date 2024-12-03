@@ -8,7 +8,7 @@ String cartProductToJson(List<CartProduct> data) =>
 
 class CartProduct {
   String model;
-  String pk; // UUID of CartProduct
+  String pk;
   Fields fields;
 
   CartProduct({
@@ -31,8 +31,8 @@ class CartProduct {
 }
 
 class Fields {
-  String cart; // UUID of the cart
-  String product; // UUID of the product
+  String cart;
+  String product;
   int amount;
   String? note;
   DateTime dateAdded;

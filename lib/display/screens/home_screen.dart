@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
+import 'package:sovita/cart/screens/cart_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -53,6 +53,15 @@ class HomeScreen extends StatelessWidget {
               }
             },
             child: Text("Logout"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const CartScreen()),
+                  );
+            },
+            child: Text("Cart"),
           )
         ],
       ),
