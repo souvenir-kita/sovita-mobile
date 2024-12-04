@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:sovita/cart/helper/fetching.dart';
 import 'package:sovita/cart/models/cart.dart';
-import 'package:sovita/display/models/product.dart';
+import 'package:sovita/adminview/models/product.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -11,21 +13,44 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  late Future<List<CartProduct>> cartProducts;
-
-  @override
-  void initState() {
-    super.initState();
-    cartProducts = fetchCartProducts();
+  Future<List<CartProduct>> fetchCartProduct(CookieRequest request) async {
+    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+    final response = await request.get('http://127.0.0.1:8000/cart/json/');
+    
+    // Melakukan decode response menjadi bentuk json
+    var data = response;
+    
+    // Melakukan konversi data json menjadi object MoodEntry
+    List<CartProduct> listMood = [];
+    for (var d in data) {
+      if (d != null) {
+        listMood.add(CartProduct.fromJson(d));
+      }
+    }
+    return listMood;
   }
+  Future<Product> fetchProductDetail(CookieRequest request, String productId) async {
+    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+    final response = await request.get('http://127.0.0.1:8000/adminview/json/$productId/');
+    
+    var data = response;
+
+    Product d = Product.fromJson(data[0]);
+    
+    // Melakukan konversi data json menjadi object MoodEntry
+    
+    return d;
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(title: const Text("My Cart")),
       body: FutureBuilder<List<CartProduct>>(
-        future: cartProducts,
-        builder: (context, snapshot) {
+        future: fetchCartProduct(request),
+        builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -39,7 +64,7 @@ class _CartScreenState extends State<CartScreen> {
                 final cartProduct = snapshot.data![index];
 
                 return FutureBuilder<Product>(
-                  future: fetchProductDetails(cartProduct.fields.product),
+                  future: fetchProductDetail(request, cartProduct.fields.product),
                   builder: (context, productSnapshot) {
                     if (productSnapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -54,7 +79,7 @@ class _CartScreenState extends State<CartScreen> {
                         margin: const EdgeInsets.all(8.0),
                         child: ListTile(
                           leading: Image.network(
-                            "$baseUrl/media/images/${product.fields.picture}",
+                            "$baseUrl/media/${product.fields.picture}",
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,

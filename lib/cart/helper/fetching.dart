@@ -2,10 +2,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:sovita/cart/models/cart.dart';
-import 'package:sovita/display/models/product.dart';
+import 'package:sovita/adminview/models/product.dart';
 
 // Define base URL for your backend API
-const String baseUrl = "https://127.0.0.1:8000";
+const String baseUrl = "http://127.0.0.1:8000";
 
 Future<List<CartProduct>> fetchCartProducts() async {
   final response = await http.get(Uri.parse("$baseUrl/cart/json"));
