@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sovita/review/widgets/review_card.dart'; // Import ReviewCard
+import 'package:sovita/review/screens/review_form.dart'; // Import ReviewCard
 
 void main() {
   runApp(MyApp());
@@ -47,7 +49,6 @@ class ReviewPage extends StatelessWidget {
                   ),
                 ),
               ),
-
               SizedBox(height: 40),
 
               // Filter dari Rating (Statik)
@@ -82,12 +83,17 @@ class ReviewPage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: 30),
 
-              // Tambah Ulasan Button (Statik)
+              // Tambah Ulasan Button (Statik) dengan Navigasi
               ElevatedButton(
-                onPressed: null, // Tidak ada fungsionalitas
+                onPressed: () {
+                  // Navigasi ke FormTambahUlasan
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FormTambahUlasan()),
+                  );
+                },
                 child: Text(
                   'Tambah Ulasan',
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -97,81 +103,35 @@ class ReviewPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 ),
               ),
-
               SizedBox(height: 40),
 
               // Ulasan List (Statik)
               Container(
                 child: Column(
                   children: [
-                    reviewCard(
-                        'User1',
-                        5,
-                        'Deskripsi ulasan produk ini sangat bagus',
-                        '2024-12-02'),
-                    reviewCard('User2', 4,
-                        'Produk cukup bagus dan sesuai harapan', '2024-12-01'),
-                    reviewCard(
-                        'User3',
-                        3,
-                        'Produk sesuai dengan deskripsi tetapi agak lambat pengiriman',
-                        '2024-11-30'),
+                    ReviewCard(
+                        username: 'User1',
+                        rating: 5,
+                        description: 'Deskripsi ulasan produk ini sangat bagus',
+                        date: '2024-12-02'),
+                    ReviewCard(
+                        username: 'User2',
+                        rating: 4,
+                        description: 'Produk cukup bagus dan sesuai harapan',
+                        date: '2024-12-01'),
+                    ReviewCard(
+                        username: 'User3',
+                        rating: 3,
+                        description:
+                            'Produk sesuai dengan deskripsi tetapi agak lambat pengiriman',
+                        date: '2024-11-30'),
                   ],
                 ),
               ),
-
               SizedBox(height: 40),
-
-              // Modal Ulasan (Statik)
-              showModalButton(context),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget reviewCard(
-      String username, int rating, String description, String date) {
-    return Card(
-      color: Colors.white.withOpacity(0.6),
-      shadowColor: Colors.black.withOpacity(0.2),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              username,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              'Rating: ' + '⭐' * rating,
-              style: TextStyle(color: Colors.yellow, fontSize: 16),
-            ),
-            Text(
-              'Deskripsi: $description',
-              style: TextStyle(fontSize: 14),
-            ),
-            Text(
-              'Dibuat: $date',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget showModalButton(BuildContext context) {
-    return ElevatedButton(
-      onPressed: null, // Tidak ada fungsionalitas
-      child: Text('Tambah Ulasan'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFFF09027),
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       ),
     );
   }
