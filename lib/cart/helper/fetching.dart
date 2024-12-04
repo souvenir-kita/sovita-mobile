@@ -1,6 +1,5 @@
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sovita/adminview/models/product.dart';
-import 'package:sovita/cart/models/cart.dart';
 import 'package:sovita/cart/models/cart_product.dart';
 
 Future<Product> fetchProductDetail(
@@ -19,22 +18,15 @@ Future<Product> fetchProductDetail(
 }
 
 Future<List<CartProduct>> fetchCartProduct(CookieRequest request) async {
-  final cartInfo = await request.get('http://127.0.0.1:8000/cart/user-cart/');
-
-  CartFields cart = CartFields.fromJson(cartInfo);
-
-  String cartId = cart.pk;
-
-  // in harusnya retrive objek" yg terkait sama cartnya aja
-  final response = await request.get('http://127.0.0.1:8000/cart/user-json/$cartId');
+  final response = await request.get('http://127.0.0.1:8000/cart/user-cart-products');
 
   var data = response;
 
-  List<CartProduct> listMood = [];
+  List<CartProduct> listCartProduct = [];
   for (var d in data) {
     if (d != null) {
-      listMood.add(CartProduct.fromJson(d));
+      listCartProduct.add(CartProduct.fromJson(d));
     }
   }
-  return listMood;
+  return listCartProduct;
 }
