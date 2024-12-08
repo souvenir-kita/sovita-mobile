@@ -4,9 +4,11 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:sovita/promo/screens/promo_screen.dart';
+import 'package:sovita/promo/models/promo.dart';
 
 class PromoForm extends StatefulWidget {
-  const PromoForm({super.key});
+  final Promo? promo;
+  const PromoForm({Key? key, this.promo}) : super(key: key);
 
   @override
   State<PromoForm> createState() => _PromoFormState();
@@ -21,12 +23,25 @@ class _PromoFormState extends State<PromoForm> {
   String _deskripsi = "";
   DateTime? _tanggalAkhirBerlaku;
 
+  @override
+  void initState() {
+    super.initState();
+    if (widget.promo != null) {
+      _nama = widget.promo!.fields.nama;
+      _kode = widget.promo!.fields.kode;
+      _potongan = widget.promo!.fields.potongan;
+      _stock = widget.promo!.fields.stock;
+      _deskripsi = widget.promo!.fields.deskripsi;
+      _tanggalAkhirBerlaku = DateTime.parse(widget.promo!.fields.tanggalAkhirBerlaku);
+    }
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000), // Tanggal pertama yang bisa dipilih
-      lastDate: DateTime(2101),  // Tanggal terakhir yang bisa dipilih
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101), 
     );
 
     if (picked != null && picked != _tanggalAkhirBerlaku) {
@@ -229,39 +244,41 @@ class _PromoFormState extends State<PromoForm> {
                     backgroundColor: WidgetStateProperty.all(
                         Theme.of(context).colorScheme.primary),
                   ),
-              onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final url = widget.promo == null
+                          ? "http://127.0.0.1:8000/promo/create-flutter/"
+                          : "http://127.0.0.1:8000/promo/edit-flutter/${widget.promo!.pk}/";
+                      
                       final response = await request.postJson(
-                          "http://127.0.0.1:8000/promo/create-flutter/",
-                          jsonEncode(<String, String>{
-                              'nama': _nama,
-                              'kode': _kode,
-                              'potongan' : _potongan.toString(),
-                              'stock' : _stock.toString(),
-                              'deskripsi' : _deskripsi,
-                              'tanggal_akhir_berlaku' : DateFormat('yyyy-MM-dd').format(_tanggalAkhirBerlaku!)  
-                          }),
+                        url,
+                        jsonEncode(<String, String>{
+                          'nama': _nama,
+                          'kode': _kode,
+                          'potongan': _potongan.toString(),
+                          'stock': _stock.toString(),
+                          'deskripsi': _deskripsi,
+                          'tanggal_akhir_berlaku': DateFormat('yyyy-MM-dd').format(_tanggalAkhirBerlaku!),
+                        }),
                       );
+
                       if (context.mounted) {
-                          if (response['status'] == 'success') {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                              content: Text("Mood baru berhasil disimpan!"),
-                              ));
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PromoPage()),
-                              );
-                          } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                  content:
-                                      Text("Terdapat kesalahan, silakan coba lagi."),
-                              ));
-                          }
+                        if (response['status'] == 'success') {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Promo berhasil disimpan!"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => PromoPage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Terdapat kesalahan, silakan coba lagi."),
+                          ));
+                        }
                       }
-                  }
-},
+                    } 
+                  },
                   child: const Text(
                     "Save",
                     style: TextStyle(color: Colors.white),
