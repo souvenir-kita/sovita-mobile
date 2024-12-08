@@ -3,6 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/promo/models/promo.dart';
 import 'package:sovita/promo/screens/promo_detail.dart';
+import 'package:sovita/promo/screens/promo_form.dart';
 
 class PromoPage extends StatefulWidget {
   const PromoPage({super.key});
@@ -50,6 +51,10 @@ class _PromoPageState extends State<PromoPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     print('Button ditekan!');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PromoForm()),
+                    );
                   },
                   child: const Text('Tambah Promo'),
                 ),

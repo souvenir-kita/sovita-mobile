@@ -25,7 +25,7 @@ class PromoDetailPage extends StatelessWidget {
             const SizedBox(height: 8),
             Text("Kode: ${promo.fields.nama}"),
             const SizedBox(height: 8),
-            Text("Potongan: ${promo.fields.potongan}"),
+            Text("Potongan:${promo.fields.potongan}"),
             const SizedBox(height: 8),
             Text("Stok: ${promo.fields.stock}"),
             const SizedBox(height: 8),
