@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:sovita/adminview/models/product.dart';
-import 'package:sovita/adminview/screens/productdetail.dart';
-import 'package:sovita/adminview/helper/fetch_product.dart';
 import 'package:sovita/adminview/screens/productlist.dart';
 import 'package:sovita/adminview/screens/productform.dart';
 class AdminPage extends StatefulWidget {
