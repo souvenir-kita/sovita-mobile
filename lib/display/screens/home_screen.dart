@@ -35,6 +35,7 @@ class HomeScreen extends StatelessWidget {
               String message = response["message"];
               if (context.mounted) {
                 if (response['status']) {
+                  request.cookies.remove("isAdmin");
                   String uname = response["username"];
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("$message Sampai jumpa, $uname."),
@@ -56,7 +57,7 @@ class HomeScreen extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const CartScreen()),
                   );

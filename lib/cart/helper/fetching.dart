@@ -1,28 +1,32 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import 'package:sovita/cart/models/cart.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/cart/models/cart_product.dart';
 
-// Define base URL for your backend API
-const String baseUrl = "http://127.0.0.1:8000";
+Future<Product> fetchProductDetail(
+    CookieRequest request, String productId) async {
+  final response =
+      await request.get('http://127.0.0.1:8000/adminview/json/$productId/');
 
-Future<List<CartProduct>> fetchCartProducts() async {
-  final response = await http.get(Uri.parse("$baseUrl/cart/json"));
-
-  if (response.statusCode == 200) {
-    return cartProductFromJson(response.body);
-  } else {
-    throw Exception("Failed to load cart products");
+  var data = response;
+  if (data[0] == null) {
+    throw "produk gagal";
   }
+
+  Product d = Product.fromJson(data[0]);
+
+  return d;
 }
 
-Future<Product> fetchProductDetails(String productId) async {
-  final response = await http.get(Uri.parse("$baseUrl/adminview/json/$productId/"));
+Future<List<CartProduct>> fetchCartProduct(CookieRequest request) async {
+  final response = await request.get('http://127.0.0.1:8000/cart/user-cart-products');
 
-  if (response.statusCode == 200) {
-    return Product.fromJson(json.decode(response.body));
-  } else {
-    throw Exception("Failed to load product details");
+  var data = response;
+
+  List<CartProduct> listCartProduct = [];
+  for (var d in data) {
+    if (d != null) {
+      listCartProduct.add(CartProduct.fromJson(d));
+    }
   }
+  return listCartProduct;
 }

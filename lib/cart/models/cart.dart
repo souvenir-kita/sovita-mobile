@@ -1,26 +1,30 @@
+// To parse this JSON data, do
+//
+//     final cart = cartFromJson(jsonString);
+
 import 'dart:convert';
 
-List<CartProduct> cartProductFromJson(String str) => 
-    List<CartProduct>.from(json.decode(str).map((x) => CartProduct.fromJson(x)));
+List<Cart> cartFromJson(String str) =>
+    List<Cart>.from(json.decode(str).map((x) => Cart.fromJson(x)));
 
-String cartProductToJson(List<CartProduct> data) => 
+String cartToJson(List<Cart> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class CartProduct {
+class Cart {
   String model;
   String pk;
-  Fields fields;
+  CartFields fields;
 
-  CartProduct({
+  Cart({
     required this.model,
     required this.pk,
     required this.fields,
   });
 
-  factory CartProduct.fromJson(Map<String, dynamic> json) => CartProduct(
+  factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         model: json["model"],
         pk: json["pk"],
-        fields: Fields.fromJson(json["fields"]),
+        fields: CartFields.fromJson(json["fields"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -30,34 +34,26 @@ class CartProduct {
       };
 }
 
-class Fields {
-  String cart;
-  String product;
-  int amount;
-  String? note;
-  DateTime dateAdded;
+class CartFields {
+  String pk;
+  int user;
+  DateTime createdAt;
 
-  Fields({
-    required this.cart,
-    required this.product,
-    required this.amount,
-    this.note,
-    required this.dateAdded,
+  CartFields({
+    required this.pk,
+    required this.user,
+    required this.createdAt,
   });
 
-  factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-        cart: json["cart"],
-        product: json["product"],
-        amount: json["amount"],
-        note: json["note"],
-        dateAdded: DateTime.parse(json["date_added"]),
+  factory CartFields.fromJson(Map<String, dynamic> json) => CartFields(
+        pk: json["pk"],
+        user: json["user"],
+        createdAt: DateTime.parse(json["created_at"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "cart": cart,
-        "product": product,
-        "amount": amount,
-        "note": note,
-        "date_added": dateAdded.toIso8601String(),
+        "pk": pk,
+        "user": user,
+        "created_at": createdAt.toIso8601String(),
       };
 }
