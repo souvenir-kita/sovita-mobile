@@ -117,10 +117,10 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.discount),
       title: const Text('Promo'),
       onTap: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const PromoPage()),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PromoPage()),
+        );
       },
     );
   }
@@ -156,10 +156,10 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.account_circle_sharp),
       title: const Text('Profile'),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const PromoPage()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const PromoPage()),
+        // );
       },
     );
   }
