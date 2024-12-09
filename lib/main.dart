@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
-import 'package:sovita/adminview/screens/adminmain.dart';
-import 'package:sovita/display/screens/home_screen.dart';
+import 'package:sovita/promo/screens/promo_screen.dart';
 // import 'package:sovita/display/screens/home_screen.dart';
 
 void main() {
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         return request;
       },
       child: MaterialApp(
-        title: 'Mental Health Tracker',
+        title: 'Sovenir Kita',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSwatch(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sovita/adminview/screens/adminmain.dart';
 import 'package:sovita/auth/screens/login.dart';
+import 'package:sovita/cart/screens/cart_screen.dart';
 import 'package:sovita/display/screens/home_screen.dart';
 // import 'package:sovita/promo/screens/promo_screen.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -102,11 +104,10 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.admin_panel_settings),
       title: const Text('Admin'),
       onTap: () {
-        // TODO: Implement admin page navigation
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => AdminPage()),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AdminPage()),
+        );
       },
     );
   }
@@ -142,10 +143,10 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.shopping_cart_checkout),
       title: const Text('Cart'),
       onTap: () {
-        // Navigator.push(
-        //   // context,
-        //   // MaterialPageRoute(builder: (context) => const PromoPage()),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CartScreen()),
+        );
       },
     );
   }
@@ -155,10 +156,10 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.account_circle_sharp),
       title: const Text('Profile'),
       onTap: () {
-        // Navigator.push(
-        //   // context,
-        //   // MaterialPageRoute(builder: (context) => const PromoPage()),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PromoPage()),
+        );
       },
     );
   }
