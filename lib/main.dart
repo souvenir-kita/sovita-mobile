@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         return request;
       },
       child: MaterialApp(
-        title: 'Mental Health Tracker',
+        title: 'Sovita Mobile',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSwatch(

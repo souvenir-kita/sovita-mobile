@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                                builder: (context) => const HomeScreen()),
                           );
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()

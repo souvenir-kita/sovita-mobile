@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sovita/adminview/models/product.dart';
 import 'package:sovita/adminview/helper/fetch_product.dart';
 import 'package:sovita/display/screens/productdetail.dart';
+import 'package:sovita/adminview/screens/editproduct.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -88,6 +89,13 @@ class _ProductListState extends State<ProductList> {
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
+                      Center(
+                          child: IconButton(
+                        icon: const Icon(Icons.edit, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProductForm(product: snapshot.data![index])));
+                        },
+                      ))
                     ],
                   ),
                   onTap: () {
