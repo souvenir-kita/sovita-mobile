@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
+import 'package:sovita/adminview/screens/adminmain.dart';
+import 'package:sovita/display/screens/home_screen.dart';
 // import 'package:sovita/display/screens/home_screen.dart';
 
 void main() {

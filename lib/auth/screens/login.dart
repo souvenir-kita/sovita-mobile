@@ -3,7 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/register.dart';
 import 'package:sovita/display/screens/home_screen.dart';
-import 'package:sovita/promo/screens/promo_screen.dart';
+// import 'package:sovita/promo/screens/promo_screen.dart';
 
 void main() {
   runApp(const LoginApp());

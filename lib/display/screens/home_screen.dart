@@ -3,7 +3,8 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
 import 'package:sovita/cart/screens/cart_screen.dart';
-import 'package:sovita/widgets/left_drawer.dart';
+import 'package:sovita/widget/left_drawer.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SOVITA OWA'),
+        title: const Text('SOVITA'),
       ),
       drawer: const LeftDrawer(),
       body: Column(
