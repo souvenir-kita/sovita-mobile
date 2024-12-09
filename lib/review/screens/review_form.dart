@@ -1,7 +1,36 @@
 import 'package:flutter/material.dart';
 
-class FormTambahUlasan extends StatelessWidget {
-  const FormTambahUlasan({super.key});
+class FormTambahUlasan extends StatefulWidget {
+  final String? initialUsername;
+  final int? initialRating;
+  final String? initialDescription;
+  final String? initialDate;
+
+  const FormTambahUlasan({
+    Key? key,
+    this.initialUsername,
+    this.initialRating,
+    this.initialDescription,
+    this.initialDate,
+  }) : super(key: key);
+
+  @override
+  State<FormTambahUlasan> createState() => _FormTambahUlasanPageState();
+}
+
+class _FormTambahUlasanPageState extends State<FormTambahUlasan> {
+  final _formKey = GlobalKey<FormState>();
+  String? username;
+  int? rating;
+  String? description;
+
+  @override
+  void initState() {
+    super.initState();
+    username = widget.initialUsername;
+    rating = widget.initialRating;
+    description = widget.initialDescription;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,67 +41,47 @@ class FormTambahUlasan extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Rating
-            const Text(
-              'Rating:',
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<int>(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Pilih Rating',
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                initialValue: username,
+                decoration: const InputDecoration(labelText: 'Username'),
+                onSaved: (value) => username = value,
               ),
-              items: List.generate(10, (index) {
-                return DropdownMenuItem<int>(
-                  value: index + 1,
-                  child: Text('${index + 1}'),
-                );
-              }),
-              onChanged: (value) {
-                // Handle rating selection here
-              },
-            ),
-            const SizedBox(height: 16),
-
-            // Komentar
-            const Text(
-              'Komentar:',
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(height: 8),
-            TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Tulis ulasan Anda...',
-              ),
-              maxLines: 5,
-              onChanged: (value) {
-                // Handle komentar change here
-              },
-            ),
-            const SizedBox(height: 24),
-
-            // Button Submit
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Logic to submit review (not implemented yet)
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Ulasan berhasil ditambahkan')),
+              DropdownButtonFormField<int>(
+                value: rating,
+                decoration: const InputDecoration(labelText: 'Rating'),
+                items: List.generate(10, (index) {
+                  return DropdownMenuItem<int>(
+                    value: index + 1,
+                    child: Text('${index + 1}'),
                   );
-                },
-                child: const Text('Kirim Ulasan'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                ),
+                }),
+                onChanged: (value) => rating = value,
               ),
-            ),
-          ],
+              TextFormField(
+                initialValue: description,
+                decoration: const InputDecoration(labelText: 'Deskripsi'),
+                maxLines: 5,
+                onSaved: (value) => description = value,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  _formKey.currentState?.save();
+                  Navigator.pop(context, {
+                    'username': username,
+                    'rating': rating,
+                    'description': description,
+                    'date': widget.initialDate ?? DateTime.now().toString(),
+                  });
+                },
+                child: const Text('Simpan'),
+              ),
+            ],
+          ),
         ),
       ),
     );

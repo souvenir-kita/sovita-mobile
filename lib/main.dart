@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/display/screens/home_screen.dart';
+import 'package:sovita/review/screens/review_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: ReviewPage(),
     );
   }
 }

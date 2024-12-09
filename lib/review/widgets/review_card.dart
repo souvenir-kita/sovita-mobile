@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-// Widget untuk menampilkan kartu ulasan
 class ReviewCard extends StatelessWidget {
   final String username;
   final int rating;
   final String description;
   final String date;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
   const ReviewCard({
     Key? key,
@@ -13,6 +14,8 @@ class ReviewCard extends StatelessWidget {
     required this.rating,
     required this.description,
     required this.date,
+    required this.onEdit,
+    required this.onDelete,
   }) : super(key: key);
 
   @override
@@ -42,6 +45,19 @@ class ReviewCard extends StatelessWidget {
             Text(
               'Dibuat: $date',
               style: TextStyle(color: Colors.grey, fontSize: 12),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit, color: Colors.blue),
+                  onPressed: onEdit,
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: onDelete,
+                ),
+              ],
             ),
           ],
         ),
