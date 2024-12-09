@@ -3,6 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
 import 'package:sovita/cart/screens/cart_screen.dart';
+import 'package:sovita/adminview/screens/adminmain.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -62,6 +63,15 @@ class HomeScreen extends StatelessWidget {
                   );
             },
             child: Text("Cart"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AdminPage()),
+                  );
+            },
+            child: Text("Admin"),
           )
         ],
       ),
