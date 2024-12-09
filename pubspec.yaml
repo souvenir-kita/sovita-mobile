@@ -41,11 +41,8 @@ dependencies:
   get: ^4.6.6
   mime: ^1.0.0
   http: ^1.2.2
-<<<<<<< HEAD
   http_parser: ^4.0.2
-=======
   intl: ^0.18.0
->>>>>>> 31ca5173a59560b13cc1a24a381bb302c862a8d6
 
 dev_dependencies:
   flutter_test:
