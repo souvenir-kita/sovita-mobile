@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/cart/helper/fetching.dart';
-import 'package:sovita/cart/models/cart.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/cart/models/cart_product.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -13,10 +13,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  
-  
-
-
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
