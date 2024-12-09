@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
 import 'package:sovita/adminview/screens/adminmain.dart';
 import 'package:sovita/display/screens/home_screen.dart';
+import 'package:sovita/forum/screens/forum.dart';
 // import 'package:sovita/display/screens/home_screen.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.deepPurple,
           ).copyWith(secondary: Colors.deepPurple[400]),
         ),
-        home: LoginPage(),
+        home: ForumPage(productId: "3cbce4bf-088a-4405-aa46-131e77ea7d19"),
       ),
     );
   }
