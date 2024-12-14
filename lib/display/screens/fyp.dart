@@ -20,7 +20,7 @@ class ForYouPage extends StatelessWidget {
       GridItemModel(label: "Aksesoris", value: 3, icon: "lib/icons/aksesoris.png"),
       GridItemModel(label: "Pakaian", value: 4, icon: "lib/icons/pakaian.png"),
       GridItemModel(label: "Bodycare", value: 5, icon: "lib/icons/aromaterapi.png"),
-      GridItemModel(label: "Semua", value: 6, icon: "lib/icons/fnb.png"),
+      GridItemModel(label: "Semua", value: 6, icon: "lib/icons/all.png"),
     ];
 
     return Scaffold(
