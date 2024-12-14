@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sovita/promo/models/promo.dart';
 import 'package:sovita/promo/screens/promo_detail.dart';
 import 'package:sovita/promo/screens/promo_form.dart';
+import 'package:sovita/widget/navigation_menu.dart';
 
 class PromoPage extends StatefulWidget {
   const PromoPage({super.key});
@@ -53,6 +54,7 @@ class _PromoPageState extends State<PromoPage> {
       appBar: AppBar(
         title: const Text('Promo List'),
       ),
+      bottomNavigationBar: const NavigationMenu(),
       // drawer: const LeftDrawer(),
       body: FutureBuilder(
         future: fetchProduct(request),
@@ -88,8 +90,10 @@ class _PromoPageState extends State<PromoPage> {
                 ),
                 const SizedBox(height: 8),
               ] else ...[
-                Expanded(
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.35,
                   child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (_, index) => InkWell(
                       onTap: () {
