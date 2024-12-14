@@ -45,9 +45,9 @@ class LeftDrawer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
       ),
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
             'Sovita',
             textAlign: TextAlign.center,
@@ -79,7 +79,7 @@ class LeftDrawer extends StatelessWidget {
       onTap: () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       },
     );
@@ -104,7 +104,7 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.admin_panel_settings),
       title: const Text('Admin'),
       onTap: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const AdminPage()),
         );
