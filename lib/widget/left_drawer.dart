@@ -6,6 +6,9 @@ import 'package:sovita/display/screens/home_screen.dart';
 import 'package:sovita/promo/screens/promo_screen.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:sovita/display/screens/fyp.dart';
+import 'package:sovita/widget/navigation_menu.dart';
+
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -93,7 +96,7 @@ class LeftDrawer extends StatelessWidget {
       onTap: () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const NavigationMenu()),
         );
       },
     );

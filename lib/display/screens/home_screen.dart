@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sovita/adminview/helper/fetch_product.dart';
-import 'package:sovita/widget/left_drawer.dart';
 import 'package:sovita/auth/screens/login.dart';
 import 'package:sovita/display/screens/allproducts.dart';
 
@@ -22,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Sovita"),
         centerTitle: true,
       ),
-      drawer: const LeftDrawer(),
       body: Column(
         children: [
           const Row(

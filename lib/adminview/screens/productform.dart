@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/adminview/screens/adminmain.dart';
+import 'package:sovita/widget/navigation_menu.dart';
 
 class ProductForm extends StatefulWidget {
   const ProductForm({super.key});
@@ -265,7 +266,7 @@ class _ProductFormState extends State<ProductForm> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AdminPage()),
+                                    builder: (context) => const NavigationMenu()),
                               );
                             } else {
                               ScaffoldMessenger.of(context)

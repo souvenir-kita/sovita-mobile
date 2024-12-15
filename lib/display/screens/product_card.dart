@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
 import 'package:sovita/display/screens/productdetail.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends StatefulWidget {
   final Product product;
 
   const ProductCard({Key? key, required this.product}) : super(key: key);
 
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,7 +26,7 @@ class ProductCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ProductDetailPage(product: product),
+              builder: (context) => ProductDetailPage(product: widget.product),
             ),
           );
         },
@@ -33,11 +38,13 @@ class ProductCard extends StatelessWidget {
                 aspectRatio: 1,
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12.0),
-                    topRight: Radius.circular(12.0),
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0),
+                    bottomLeft: Radius.circular(15.0),
+                    bottomRight: Radius.circular(15.0),
                   ),
                   child: Image.network(
-                    "http://127.0.0.1:8000/media/${product.fields.picture}",
+                    "http://127.0.0.1:8000/media/${widget.product.fields.picture}",
                     fit: BoxFit.cover, // Potong gambar agar memenuhi ukuran
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(
@@ -56,13 +63,13 @@ class ProductCard extends StatelessWidget {
               const SizedBox(height: 8),
               Container(
                 child: Text(
-                  product.fields.name,
+                  widget.product.fields.name,
                   maxLines: 2, // Membatasi nama produk agar maksimal 2 baris
                   overflow: TextOverflow.ellipsis, // Teks yang melebihi 2 baris akan dipotong
                   style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
-                    fontSize: 10,
+                    fontSize: 12,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -72,8 +79,8 @@ class ProductCard extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  "Price: Rp${product.fields.price}",
-                  style: const TextStyle(color: Colors.black, fontSize: 10),
+                  "Price: Rp${widget.product.fields.price}",
+                  style: const TextStyle(color: Colors.black, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
               ),

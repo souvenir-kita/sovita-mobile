@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/screens/productlist.dart';
 import 'package:sovita/adminview/screens/productform.dart';
-import 'package:sovita/widget/left_drawer.dart';
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
 
@@ -44,7 +43,6 @@ class _AdminPageState extends State<AdminPage> {
           ],
         ),
       ),
-      drawer: const LeftDrawer(),
     );
   }
 }
