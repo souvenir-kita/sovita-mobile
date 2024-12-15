@@ -3,10 +3,11 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/adminview/helper/fetch_product_fyp.dart';
 import 'package:sovita/adminview/models/product.dart';
-import 'package:sovita/display/screens/product_card.dart';
+import 'package:sovita/display/widgets/product_card.dart';
 import 'package:sovita/display/screens/productdetail.dart';
 import 'package:sovita/display/screens/allproducts.dart';
 import 'package:sovita/display/screens/category_product.dart';
+import 'package:sovita/widget/search_bar.dart';
 
 class ForYouPage extends StatelessWidget {
   const ForYouPage({super.key});
@@ -45,24 +46,9 @@ class ForYouPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.search),
-                      SizedBox(width: 20, height: 30),
-                      Text('Cari Produk')
-                    ],
-                  ),
-                ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: SearchBarForm(),
               ),
               const SizedBox(height: 10),
               Padding(
