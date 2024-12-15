@@ -6,7 +6,6 @@ import 'package:sovita/display/screens/home_screen.dart';
 import 'package:sovita/promo/screens/promo_screen.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sovita/display/screens/fyp.dart';
 import 'package:sovita/widget/navigation_menu.dart';
 
 

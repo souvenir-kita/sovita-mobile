@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sovita/adminview/screens/adminmain.dart';
 import 'package:sovita/widget/navigation_menu.dart';
 
 class ProductForm extends StatefulWidget {

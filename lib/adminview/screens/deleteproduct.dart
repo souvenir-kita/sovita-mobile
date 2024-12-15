@@ -23,6 +23,7 @@ class _DeleteProductState extends State<DeleteProduct> {
       );
 
       if (response['status'] == 'success') {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Product deleted successfully!'),
@@ -31,7 +32,7 @@ class _DeleteProductState extends State<DeleteProduct> {
         );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => NavigationMenu()),
+          MaterialPageRoute(builder: (context) => const NavigationMenu()),
         );
       } else {
         throw Exception(response['error']);
@@ -67,10 +68,10 @@ class _DeleteProductState extends State<DeleteProduct> {
               onPressed: () async {
                 await deleteProduct(context);
               },
-              child: const Text('Delete Product'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
               ),
+              child: const Text('Delete Product'),
             ),
             const SizedBox(height: 10),
             TextButton(
