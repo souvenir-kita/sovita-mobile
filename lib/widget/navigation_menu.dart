@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sovita/cart/screens/cart_screen.dart';
 import 'package:sovita/display/screens/fyp.dart';
+import 'package:sovita/adminview/screens/adminmain.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -18,7 +19,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     ForYouPage(), 
     CartScreen(), 
     Container(), // Wishlist (Placeholder, replace later)
-    Container(), // Profile (Placeholder, replace later)
+    AdminPage(), // Profile (Placeholder, replace later)
   ];
 
   @override

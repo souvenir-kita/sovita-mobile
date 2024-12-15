@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sovita/promo/models/promo.dart';
-import 'package:sovita/widget/left_drawer.dart';
 
 class PromoDetailScreen extends StatelessWidget {  
   const PromoDetailScreen({Key? key}) : super(key: key);

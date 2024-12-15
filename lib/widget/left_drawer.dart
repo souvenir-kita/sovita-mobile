@@ -6,6 +6,8 @@ import 'package:sovita/display/screens/home_screen.dart';
 import 'package:sovita/promo/screens/promo_screen.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:sovita/widget/navigation_menu.dart';
+
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -45,9 +47,9 @@ class LeftDrawer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primary,
       ),
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
             'Sovita',
             textAlign: TextAlign.center,
@@ -79,7 +81,7 @@ class LeftDrawer extends StatelessWidget {
       onTap: () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       },
     );
@@ -93,7 +95,7 @@ class LeftDrawer extends StatelessWidget {
       onTap: () {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const NavigationMenu()),
         );
       },
     );
@@ -104,7 +106,7 @@ class LeftDrawer extends StatelessWidget {
       leading: const Icon(Icons.admin_panel_settings),
       title: const Text('Admin'),
       onTap: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const AdminPage()),
         );
