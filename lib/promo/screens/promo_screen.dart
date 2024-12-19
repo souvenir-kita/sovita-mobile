@@ -54,8 +54,6 @@ class _PromoPageState extends State<PromoPage> {
       appBar: AppBar(
         title: const Text('Promo List'),
       ),
-      bottomNavigationBar: const NavigationMenu(),
-      // drawer: const LeftDrawer(),
       body: FutureBuilder(
         future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
