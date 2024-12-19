@@ -30,11 +30,11 @@ class ForYouPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFF09027),
-        title: Image.asset('lib/assets/title.png', width: 100),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Color(0xFFF09027),
+      //   title: Image.asset('lib/assets/title.png', width: 100),
+      //   centerTitle: true,
+      // ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -46,8 +46,8 @@ class ForYouPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
+              const SizedBox(height: 10),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
                 child: SearchBarForm(),
               ),
               const SizedBox(height: 10),

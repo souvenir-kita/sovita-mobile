@@ -10,14 +10,15 @@ import 'package:sovita/widget/search_bar.dart';
 
 class AllProducts extends StatefulWidget {
   final String? search;
-  const AllProducts({super.key, this.search});
+  final String? filter;
+  const AllProducts({super.key, this.search, this.filter});
 
   @override
   State<AllProducts> createState() => _AllProductsState();
 }
 
 class _AllProductsState extends State<AllProducts> {
-  late Future<List<dynamic>> _products;
+  late Future<List<Product>> _products;
 
   @override
   void initState() {
@@ -32,6 +33,32 @@ class _AllProductsState extends State<AllProducts> {
           ? fetchProduct(request)
           : fetchSearchProduct(request, widget.search);
     });
+  }
+
+  List<Product> _applyFilter(List<Product> products) {
+    if (widget.filter == null) return products;
+
+    final filterParts = widget.filter!.split(':');
+    final filterType = filterParts[0];
+    final order = filterParts.length > 1 ? filterParts[1] : 'asc';
+
+    switch (filterType) {
+      case 'price':
+        products.sort((a, b) => 
+            order == 'asc' ?  int.parse(double.parse(a.fields.price).toStringAsFixed(0)).compareTo( int.parse(double.parse(b.fields.price).toStringAsFixed(0))) 
+                            : int.parse(double.parse(b.fields.price).toStringAsFixed(0)).compareTo( int.parse(double.parse(a.fields.price).toStringAsFixed(0))));
+        break;
+      case 'alphabet':
+        products.sort((a, b) =>
+            order == 'asc' ? a.fields.name.compareTo(b.fields.name) : b.fields.name.compareTo(a.fields.name));
+        break;
+      case 'time':
+        products.sort((a, b) =>
+            order == 'asc' ? a.fields.dateCreated.compareTo(b.fields.dateCreated) : b.fields.dateCreated.compareTo(a.fields.dateCreated));
+        break;
+    }
+
+    return products;
   }
 
   @override
@@ -59,16 +86,16 @@ class _AllProductsState extends State<AllProducts> {
               child: Row(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.05,
                     child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8, // Ubah ukuran sesuai kebutuhan
+                    width: MediaQuery.of(context).size.width * 0.95,
                     child: const SearchBarForm(fromAllProductScreen: true),
                   ),
                 ],
@@ -76,11 +103,9 @@ class _AllProductsState extends State<AllProducts> {
             ),
             Expanded(
               child: FutureBuilder<List<Product>>(
-                future: (widget.search == null)
-                    ? fetchProduct(request)
-                    : fetchSearchProduct(request, widget.search),
+                future: _products,
                 builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (!snapshot.hasData || snapshot.data.isEmpty) {
                     return const Center(
@@ -90,6 +115,10 @@ class _AllProductsState extends State<AllProducts> {
                       ),
                     );
                   } else {
+                    // Apply filter after fetching the products
+                    List<Product> filteredProducts =
+                        _applyFilter(snapshot.data);
+
                     return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -98,7 +127,7 @@ class _AllProductsState extends State<AllProducts> {
                         mainAxisSpacing: 10.0,
                         childAspectRatio: 3 / 4,
                       ),
-                      itemCount: snapshot.data!.length,
+                      itemCount: filteredProducts.length,
                       itemBuilder: (_, index) {
                         return InkWell(
                           onTap: () {
@@ -106,13 +135,13 @@ class _AllProductsState extends State<AllProducts> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ProductDetailPage(
-                                  product: snapshot.data![index],
+                                  product: filteredProducts[index],
                                 ),
                               ),
                             );
                           },
                           borderRadius: BorderRadius.circular(15),
-                          child: ProductCard(product: snapshot.data![index]),
+                          child: ProductCard(product: filteredProducts[index]),
                         );
                       },
                     );
