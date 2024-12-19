@@ -9,8 +9,8 @@ import 'package:sovita/display/screens/allproducts.dart';
 import 'package:sovita/display/screens/category_product.dart';
 import 'package:sovita/widget/search_bar.dart';
 
-class ForYouPage extends StatelessWidget {
-  const ForYouPage({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

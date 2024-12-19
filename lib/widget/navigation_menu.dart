@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sovita/cart/screens/cart_screen.dart';
-import 'package:sovita/display/screens/fyp.dart';
+import 'package:sovita/display/screens/homescreen.dart';
 import 'package:sovita/profil/screen/profil.dart';
 
 class NavigationMenu extends StatefulWidget {
@@ -15,7 +15,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    ForYouPage(), 
+    HomeScreen(), 
     CartScreen(), 
     Container(), // Wishlist (Placeholder, replace later)
     ProfilPage(),
