@@ -16,90 +16,116 @@ class ForYouPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
 
-    // Daftar objek GridItemModel dengan value yang lebih lengkap
     List<GridItemModel> items = [
       GridItemModel(label: "FnB", value: 1, icon: "lib/icons/fnb.png"),
-      GridItemModel(label: "Dekorasi", value: 2, icon: "lib/icons/dekorasi.png"),
-      GridItemModel(label: "Aksesoris", value: 3, icon: "lib/icons/aksesoris.png"),
+      GridItemModel(
+          label: "Dekorasi", value: 2, icon: "lib/icons/dekorasi.png"),
+      GridItemModel(
+          label: "Aksesoris", value: 3, icon: "lib/icons/aksesoris.png"),
       GridItemModel(label: "Pakaian", value: 4, icon: "lib/icons/pakaian.png"),
-      GridItemModel(label: "Bodycare", value: 5, icon: "lib/icons/aromaterapi.png"),
+      GridItemModel(
+          label: "Bodycare", value: 5, icon: "lib/icons/aromaterapi.png"),
       GridItemModel(label: "Semua", value: 6, icon: "lib/icons/all.png"),
     ];
 
     return Scaffold(
-      body: SingleChildScrollView(  // Wrap the entire content with SingleChildScrollView
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              SizedBox(
-                child: SearchBarForm(),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(3, 20, 3, 20),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0x80D9D9D9),
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.13,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: List.generate(items.length, (index) {
-                        return Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: GridItem(item: items[index]),
-                          ),
-                        );
-                      }),
-                    ),
+      body: FutureBuilder(
+        future: Future.wait([
+          fetchProductRandom(request),
+        ]),
+        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFFF09027), 
+                      Color(0xFFF09027).withOpacity(0.8), 
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
                 ),
-              ),
-              SizedBox(height: 20),  // Added some space for separation
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color(0x80D9D9D9),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
-                width: MediaQuery.of(context).size.width * 0.9,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else if (snapshot.hasData) {
+            List<Product> products = snapshot.data![0];
+
+            return SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 10),
+                    SizedBox(child: SearchBarForm()),
+                    const SizedBox(height: 10),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 10, 0, 0),
-                      child: Text(
-                        "Produk Populer",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                      padding: const EdgeInsets.fromLTRB(3, 20, 3, 20),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color(0x80D9D9D9),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.13,
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(items.length, (index) {
+                              return Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: GridItem(item: items[index]),
+                                ),
+                              );
+                            }),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),  // Added space between the title and the grid
-                    FutureBuilder<List<Product>>(
-                      future: fetchProductRandom(request),
-                      builder: (context, AsyncSnapshot snapshot) {
-                        if (snapshot.data == null) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else {
-                          return GridView.builder(
-                            shrinkWrap: true,  // Makes the grid only take up as much space as needed
-                            physics: NeverScrollableScrollPhysics(),  // Disables scrolling on the grid
+                    SizedBox(height: 20),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0x80D9D9D9),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(12, 10, 0, 0),
+                            child: Text(
+                              "Produk Populer",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -107,35 +133,36 @@ class ForYouPage extends StatelessWidget {
                               mainAxisSpacing: 10.0,
                               childAspectRatio: 3 / 4,
                             ),
-                            itemCount: snapshot.data!.length,
+                            itemCount: products.length,
                             itemBuilder: (_, index) {
                               return InkWell(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailPage(
-                                        product: snapshot.data![index],
-                                      ),
+                                      builder: (context) => ProductDetailPage(
+                                          product: products[index]),
                                     ),
                                   );
                                 },
                                 borderRadius: BorderRadius.circular(15),
-                                child: ProductCard(
-                                    product: snapshot.data![index]),
+                                child: ProductCard(product: products[index]),
                               );
                             },
-                          );
-                        }
-                      },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
+            );
+          } else {
+            return Center(
+              child: Text('No data available'),
+            );
+          }
+        },
       ),
     );
   }
@@ -159,22 +186,43 @@ class GridItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (item.value == 1) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryProductPage(categoryValue: 1)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const CategoryProductPage(categoryValue: 1)));
         }
         if (item.value == 2) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryProductPage(categoryValue: 2)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const CategoryProductPage(categoryValue: 2)));
         }
         if (item.value == 3) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryProductPage(categoryValue: 3)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const CategoryProductPage(categoryValue: 3)));
         }
         if (item.value == 4) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryProductPage(categoryValue: 4)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const CategoryProductPage(categoryValue: 4)));
         }
         if (item.value == 5) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoryProductPage(categoryValue: 5)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const CategoryProductPage(categoryValue: 5)));
         }
         if (item.value == 6) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const AllProducts()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AllProducts()));
         }
       },
       borderRadius: BorderRadius.circular(10),
