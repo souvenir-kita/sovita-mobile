@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
+import 'package:sovita/promo/screens/promo_screen.dart';
+import 'package:sovita/promo/widgets/promo_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.deepPurple,
           ).copyWith(secondary: Colors.deepPurple[400]),
         ),
-        home: const LoginPage(),
+        home: const PromoPage(),
       ),
     );
   }
