@@ -3,12 +3,10 @@ import 'package:sovita/promo/models/promo.dart';
 
 class PromoCard extends StatelessWidget {
   final Promo promo;
-  final Future<void> Function(String promoId) onDelete;
 
   const PromoCard({
     super.key,
     required this.promo,
-    required this.onDelete,
   });
 
   @override
@@ -16,17 +14,7 @@ class PromoCard extends StatelessWidget {
     double width = MediaQuery.of(context).size.width * 0.4;
     double height = width * 2 / 3;
 
-    return InkWell(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return PromoDialog(promo: promo);
-          },
-        );
-      },
-      child: buildCard(context, width, height),
-    );
+    return buildCard(context, width, height);
   }
 
   Widget buildCard(BuildContext context, double width, double height) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/promo/screens/helper/fetch_promo.dart';
+import 'package:sovita/promo/screens/promo_detail.dart';
 import 'package:sovita/promo/screens/promo_form.dart';
 import 'package:sovita/promo/widgets/promo_card.dart';
 
@@ -183,9 +184,18 @@ class _PromoPageState extends State<PromoPage> {
                         ),
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          return PromoCard(
-                            promo: snapshot.data[index],
-                            onDelete: (id) => deletePromo(request, id),
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PromoDetailPage(promo: snapshot.data[index]),
+                                ),
+                              );
+                            },
+                            child: PromoCard(
+                              promo: snapshot.data[index],
+                            ),
                           );
                         },
                       ),
