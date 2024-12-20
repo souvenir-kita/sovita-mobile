@@ -30,108 +30,113 @@ class PromoCard extends StatelessWidget {
   }
 
   Widget buildCard(BuildContext context, double width, double height) {
-    return Container(
-      width: width,
-      height: height,
-      padding: const EdgeInsets.all(8.0),
-      child: AspectRatio(
-        aspectRatio: 3 / 2,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 20,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFF0F0),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16),
-                            bottomLeft: Radius.circular(16),
+    final isExpired = DateTime.parse(promo.fields.tanggalAkhirBerlaku).isBefore(DateTime.now());
+
+    return Opacity(
+      opacity: isExpired ? 0.5 : 1.0, 
+      child: Container(
+        width: width,
+        height: height,
+        padding: EdgeInsets.all(8.0),
+        child: AspectRatio(
+          aspectRatio: 3 / 2,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Stack(
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 20,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: isExpired ? Colors.grey[300] : Color(0xFFFFF0F0),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              bottomLeft: Radius.circular(16),
+                            ),
                           ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Text(
-                                promo.fields.nama,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  decoration: TextDecoration.underline,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Text(
+                                  promo.fields.nama,
+                                  style: TextStyle(
+                                    fontSize: MediaQuery.of(context).size.width * 0.025, 
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
-                              child: Text(
-                                'Kode: ${promo.fields.kode}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black54,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 1.0),
+                                child: Text(
+                                  'Kode: ${promo.fields.kode}',
+                                  style: TextStyle(
+                                    fontSize: MediaQuery.of(context).size.width * 0.018,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black54,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 4.0),
-                              child: Text(
-                                'Valid hingga: ${promo.fields.tanggalAkhirBerlaku.toString()}',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.redAccent,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Text(
+                                  'Valid hingga: ${promo.fields.tanggalAkhirBerlaku}',
+                                  style: TextStyle(
+                                    fontSize: MediaQuery.of(context).size.width * 0.015, 
+                                    fontWeight: FontWeight.w600,
+                                    color: isExpired ? Colors.grey : Colors.redAccent,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 9,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: getColor(promo.fields.potongan),
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(16),
-                            bottomRight: Radius.circular(16),
+                      Expanded(
+                        flex: 9,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: isExpired ? Colors.grey : getColor(promo.fields.potongan),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(16),
+                              bottomRight: Radius.circular(16),
+                            ),
                           ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.local_offer,
-                                color: Colors.white, size: 40),
-                            Text(
-                              '${promo.fields.potongan}%',
-                              style: TextStyle(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.local_offer,
                                 color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
+                                size: MediaQuery.of(context).size.width * 0.06, 
                               ),
-                            ),
-                          ],
+                              Text(
+                                  '${promo.fields.potongan}%',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: MediaQuery.of(context).size.width * 0.035, 
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -149,6 +154,7 @@ Color getColor(int potongan) {
   }
 }
 
+
 class PromoDialog extends StatelessWidget {
   final Promo promo;
 
@@ -165,11 +171,18 @@ class PromoDialog extends StatelessWidget {
       ),
       title: Row(
         children: [
-          Icon(Icons.local_offer, color: Colors.blue, size: 28),
+          Icon(
+            Icons.local_offer,
+            color: Colors.blue,
+            size: MediaQuery.of(context).size.width * 0.08, // Ukuran ikon responsif
+          ),
           const SizedBox(width: 8),
           Text(
             "Promo Details",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.05, // Ukuran font responsif
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
@@ -178,21 +191,13 @@ class PromoDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildInfoText("Nama", promo.fields.nama),
-            _buildInfoText("Kode", promo.fields.kode),
-            _buildInfoText("Potongan", "${promo.fields.potongan}%"),
-            _buildInfoText("Stok", promo.fields.stock.toString()),
-            _buildInfoText("Tanggal Akhir Berlaku",
-                promo.fields.tanggalAkhirBerlaku.toString()),
-            _buildInfoText("Deskripsi", promo.fields.deskripsi),
           ],
         ),
       ),
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.of(context)
-                .pop(); // Close the dialog when the button is pressed
+            Navigator.of(context).pop(); 
           },
           child: Text(
             "Close",
@@ -200,30 +205,6 @@ class PromoDialog extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildInfoText(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        children: [
-          Text(
-            "$label: ",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-              fontSize: 16,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 16, color: Colors.black54),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -15,10 +15,11 @@ class PromoPage extends StatefulWidget {
 class _PromoPageState extends State<PromoPage> {
   String? filterBy;
   bool isAscending = true;
-  
+  bool includeExpired = true;
+
   String get filterButtonText {
     if (filterBy == null) return 'Filter';
-    
+
     if (filterBy == 'potongan') {
       return isAscending ? 'Potongan Terkecil' : 'Potongan Terbesar';
     } else {
@@ -28,16 +29,23 @@ class _PromoPageState extends State<PromoPage> {
 
   Future<List<dynamic>> getSortedPromos(CookieRequest request) async {
     final promos = await fetchPromo(request);
-    
+
+    final filteredPromos = includeExpired
+        ? promos
+        : promos.where((promo) {
+            final expiryDate = DateTime.parse(promo.fields.tanggalAkhirBerlaku);
+            return expiryDate.isAfter(DateTime.now());
+          }).toList();
+
     if (filterBy != null) {
-      promos.sort((a, b) {
+      filteredPromos.sort((a, b) {
         if (filterBy == 'potongan') {
           if (isAscending) {
             return a.fields.potongan.compareTo(b.fields.potongan);
           } else {
             return b.fields.potongan.compareTo(a.fields.potongan);
           }
-        } else { // tanggal
+        } else {
           if (isAscending) {
             return DateTime.parse(a.fields.tanggalAkhirBerlaku)
                 .compareTo(DateTime.parse(b.fields.tanggalAkhirBerlaku));
@@ -48,8 +56,8 @@ class _PromoPageState extends State<PromoPage> {
         }
       });
     }
-    
-    return promos;
+
+    return filteredPromos;
   }
 
   Future<void> deletePromo(CookieRequest request, String promoId) async {
@@ -74,112 +82,119 @@ class _PromoPageState extends State<PromoPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Promo List'),
-      ),
-      body: FutureBuilder(
-        future: getSortedPromos(request),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    PopupMenuButton<Map<String, dynamic>>(
-                      onSelected: (Map<String, dynamic> result) {
-                        setState(() {
-                          filterBy = result['filterBy'];
-                          isAscending = result['isAscending'];
-                        });
-                      },
-                      itemBuilder: (BuildContext context) => [
-                        PopupMenuItem(
-                          value: {'filterBy': 'potongan', 'isAscending': true},
-                          child: const Text('Potongan Harga (A-Z)'),
-                        ),
-                        PopupMenuItem(
-                          value: {'filterBy': 'potongan', 'isAscending': false},
-                          child: const Text('Potongan Harga (Z-A)'),
-                        ),
-                        PopupMenuItem(
-                          value: {'filterBy': 'tanggal', 'isAscending': true},
-                          child: const Text('Tanggal (Terlama)'),
-                        ),
-                        PopupMenuItem(
-                          value: {'filterBy': 'tanggal', 'isAscending': false},
-                          child: const Text('Tanggal (Terbaru)'),
-                        ),
-                      ],
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).elevatedButtonTheme.style?.backgroundColor?.resolve({}) 
-                              ?? Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.filter_list, color: Colors.white),
-                            const SizedBox(width: 8),
-                            Text(
-                              filterButtonText,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const PromoForm()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        padding: const EdgeInsets.all(12),
-                      ),
-                      child: const Icon(Icons.add),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              if (snapshot.data.length == 0)
-                const EmptyPromoMessage()
-              else
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        padding: const EdgeInsets.all(4),
+        child: FutureBuilder(
+          future: getSortedPromos(request),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 4 / 2,
-                    ),
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return PromoCard(
-                        promo: snapshot.data[index],
-                        onDelete: (id) => deletePromo(request, id),
-                      );
-                    },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return FilterDialog(
+                                    filterBy: filterBy,
+                                    isAscending: isAscending,
+                                    includeExpired: includeExpired,
+                                    onFilterChanged: (newFilterBy, newIsAscending) {
+                                      setState(() {
+                                        filterBy = newFilterBy;
+                                        isAscending = newIsAscending;
+                                      });
+                                    },
+                                    onExpiredChanged: (value) {
+                                      setState(() {
+                                        includeExpired = value;
+                                      });
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                const Icon(Icons.filter_list),
+                                const SizedBox(width: 8),
+                                Text(filterButtonText),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const PromoForm()),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(12),
+                            ),
+                            child: const Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-            ],
-          );
-        },
+                const SizedBox(height: 16),
+                if (snapshot.data.length == 0)
+                  const EmptyPromoMessage()
+                else
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 4 / 2,
+                        ),
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) {
+                          return PromoCard(
+                            promo: snapshot.data[index],
+                            onDelete: (id) => deletePromo(request, id),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -200,4 +215,215 @@ class EmptyPromoMessage extends StatelessWidget {
       ],
     );
   }
+}
+
+class FilterDialog extends StatefulWidget {
+  final String? filterBy;
+  final bool isAscending;
+  final bool includeExpired;
+  final Function(String?, bool) onFilterChanged;
+  final Function(bool) onExpiredChanged;
+
+  const FilterDialog({
+    Key? key,
+    required this.filterBy,
+    required this.isAscending,
+    required this.includeExpired,
+    required this.onFilterChanged,
+    required this.onExpiredChanged,
+  }) : super(key: key);
+
+  @override
+  State<FilterDialog> createState() => _FilterDialogState();
+}
+
+class _FilterDialogState extends State<FilterDialog> {
+  late bool _includeExpired;
+
+  @override
+  void initState() {
+    super.initState();
+    _includeExpired = widget.includeExpired;
+  }
+
+  Widget _buildFilterOption({
+    required String title,
+    required List<FilterOption> options,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF2C3E50),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 6,
+          runSpacing: 6,
+          children: options.map((option) {
+            final isSelected =
+                widget.filterBy == option.type && widget.isAscending == option.isAscending;
+            return FilterChip(
+              label: Text(
+                option.label,
+                style: TextStyle(fontSize: 12),
+              ),
+              selected: isSelected,
+              showCheckmark: false,
+              backgroundColor: Colors.grey[200],
+              selectedColor: const Color(0xFF59A5D8),
+              labelStyle: TextStyle(
+                color: isSelected ? Colors.white : Colors.black87,
+                fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+              ),
+              onSelected: (bool selected) {
+                if (selected) {
+                  widget.onFilterChanged(option.type, option.isAscending);
+                  Navigator.pop(option.context);
+                }
+              },
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Filter',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2C3E50),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close, size: 20, color: Colors.grey),
+                  onPressed: () => Navigator.pop(context),
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Tampilkan yang kadaluarsa',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Switch(
+                  value: _includeExpired,
+                  onChanged: (value) {
+                    setState(() {
+                      _includeExpired = value;
+                    });
+                    widget.onExpiredChanged(value);
+                  },
+                  activeColor: const Color(0xFF59A5D8), 
+                  inactiveTrackColor: const Color(0xFFB0BEC5),
+                  inactiveThumbColor: const Color.fromARGB(255, 61, 61, 61), 
+                )
+              ],
+            ),
+            const Divider(height: 24),
+            _buildFilterOption(
+              title: 'Berdasarkan Potongan',
+              options: [
+                FilterOption(
+                  context: context,
+                  type: 'potongan',
+                  isAscending: true,
+                  label: 'Terendah ke Tertinggi',
+                ),
+                FilterOption(
+                  context: context,
+                  type: 'potongan',
+                  isAscending: false,
+                  label: 'Tertinggi ke Terendah',
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            _buildFilterOption(
+              title: 'Berdasarkan Tanggal Kadaluarsa',
+              options: [
+                FilterOption(
+                  context: context,
+                  type: 'tanggal',
+                  isAscending: true,
+                  label: 'Terlama ke Tercepat',
+                ),
+                FilterOption(
+                  context: context,
+                  type: 'tanggal',
+                  isAscending: false,
+                  label: 'Tercepat ke Terlama',
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    widget.onFilterChanged(null, true);
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Reset Filter',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FilterOption {
+  final BuildContext context;
+  final String type;
+  final bool isAscending;
+  final String label;
+
+  FilterOption({
+    required this.context,
+    required this.type,
+    required this.isAscending,
+    required this.label,
+  });
 }
