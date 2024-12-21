@@ -79,7 +79,7 @@ class _ProductCardState extends State<ProductCard> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  "Price: Rp${widget.product.fields.price}",
+                  "Rp${widget.product.fields.price}",
                   style: const TextStyle(color: Colors.black, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
