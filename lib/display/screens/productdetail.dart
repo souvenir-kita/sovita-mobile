@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/cart/screens/add_to_cart_form.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -37,8 +38,7 @@ class ProductDetailPage extends StatelessWidget {
             Text(
               "Desc:\n${product.fields.description}",
               style: const TextStyle(color: Colors.black),
-              softWrap:
-                  true,
+              softWrap: true,
             ),
             const SizedBox(height: 8),
             Text(
@@ -51,21 +51,47 @@ class ProductDetailPage extends StatelessWidget {
               style: const TextStyle(color: Colors.black),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    const Color.fromARGB(255, 29, 29, 29),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 12.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(8.0),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 29, 29, 29),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 12.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  child: const Text("Back to Product List"),
                 ),
-              ),
-              child: const Text("Back to Product List"),
-            )
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          builder: (context) => AddToCartForm(productPk: product.pk),
+        );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 29, 29, 29),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 12.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  child: const Text("Add to cart"),
+                ),
+
+              ],
+            ),
           ],
         ),
       ),

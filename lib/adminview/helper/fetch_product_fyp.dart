@@ -3,7 +3,8 @@ import 'package:sovita/adminview/models/product.dart';
 
 Future<List<Product>> fetchProductRandom(CookieRequest request) async {
   try {
-    final response = await request.get('http://127.0.0.1:8000/adminview/json-random/');
+    // web: 127.0.0.1
+    final response = await request.get('http://10.0.2.2:8000/adminview/json-random/');
 
     if (response is List) {
       List<Product> listProduct = [];
