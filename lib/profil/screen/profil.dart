@@ -8,7 +8,6 @@ import 'package:sovita/profil/model/user_profil.dart';
 import 'package:sovita/promo/models/promo.dart';
 import 'package:sovita/promo/screens/promo_screen.dart';
 
-
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
 
@@ -17,39 +16,40 @@ class ProfilPage extends StatelessWidget {
     final request = context.watch<CookieRequest>();
     bool isAdmin = request.cookies.containsKey("isAdmin") &&
         request.cookies["isAdmin"]!.value == "1";
-
     return Scaffold(
       body: FutureBuilder<UserProfile>(
         future: fetchUserProfile(request),
         builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: Container(
-              width: double.infinity, 
-              height: MediaQuery.of(context).size.height,  
-              color: const Color(0xFFF09027),
-              child: const Center(  
-                child: CircularProgressIndicator(),
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                color: const Color(0xFFF09027),
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
-            ),
-          );
+            );
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (snapshot.hasData) {
             UserProfile userProfile = snapshot.data!;
 
-            return SingleChildScrollView(
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFFF09027),
-                      Color(0xFF8CBEAA),
-                    ],
-                  ),
+            return Container(
+              // Container ini untuk memastikan gradiennya merata
+              height: double.infinity, // Pastikan tinggi penuh
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFFF09027),
+                    Color(0xFF8CBEAA),
+                  ],
                 ),
+              ),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Container(
@@ -70,7 +70,7 @@ class ProfilPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 16),
                               Text(
-                                userProfile.username, 
+                                userProfile.username,
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -106,7 +106,7 @@ class ProfilPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // The second column remains the same
+                    // Konten lainnya
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ListView(
@@ -121,7 +121,8 @@ class ProfilPage extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const AdminPage()),
+                                  MaterialPageRoute(
+                                      builder: (context) => const AdminPage()),
                                 );
                               },
                             ),
@@ -132,7 +133,8 @@ class ProfilPage extends StatelessWidget {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => PromoPage()),
+                                  MaterialPageRoute(
+                                      builder: (context) => PromoPage()),
                                 );
                               },
                             ),
@@ -162,19 +164,23 @@ class ProfilPage extends StatelessWidget {
                             textColor: const Color.fromARGB(255, 248, 0, 0),
                             iconColor: const Color.fromARGB(255, 248, 0, 0),
                             onTap: () async {
-                              final response = await request
-                                  .logout("http://127.0.0.1:8000/authentication/api-logout/");
+                              final response = await request.logout(
+                                  "http://127.0.0.1:8000/authentication/api-logout/");
                               String message = response["message"];
                               if (context.mounted) {
                                 if (response['status']) {
                                   request.cookies.remove("isAdmin");
                                   String uname = response["username"];
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                    content: Text("$message Sampai jumpa, $uname."),
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content:
+                                        Text("$message Sampai jumpa, $uname."),
                                   ));
                                   Navigator.pushReplacement(
                                     context,
-                                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()),
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -201,7 +207,6 @@ class ProfilPage extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _buildCollapsibleInfo(UserProfile userProfile) {
     return ExpansionTile(
