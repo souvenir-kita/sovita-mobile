@@ -117,8 +117,8 @@ class _PromoFormState extends State<PromoForm> {
                   if (value == null || value.isEmpty) {
                     return "Kode tidak boleh kosong!";
                   }
-                  if (value.length > 20) {
-                    return "Kode tidak boleh lebih dari 20 huruf!";
+                  if (value.length > 15) {
+                    return "Kode tidak boleh lebih dari 15 huruf!";
                   }
                   if (value.length < 4) {
                     return "Kode tidak boleh kurang dari 4 huruf!";
