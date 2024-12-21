@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/adminview/models/product.dart';
-import 'package:sovita/display/screens/product_card.dart';
+import 'package:sovita/display/widgets/product_card.dart';
 import 'package:sovita/display/screens/productdetail.dart';
 import 'package:sovita/adminview/helper/fetch_product.dart';
 

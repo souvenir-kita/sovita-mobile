@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sovita/cart/screens/cart_screen.dart';
-import 'package:sovita/display/screens/fyp.dart';
-import 'package:sovita/adminview/screens/adminmain.dart';
+import 'package:sovita/display/screens/homescreen.dart';
+import 'package:sovita/profil/screen/profil.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -14,25 +14,27 @@ class NavigationMenu extends StatefulWidget {
 class _NavigationMenuState extends State<NavigationMenu> {
   int _selectedIndex = 0;
 
-  // List of screens corresponding to each navigation item
   final List<Widget> _pages = [
-    ForYouPage(), 
+    HomeScreen(), 
     CartScreen(), 
     Container(), // Wishlist (Placeholder, replace later)
-    AdminPage(), // Profile (Placeholder, replace later)
+    ProfilPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: const Color.fromARGB(255, 218, 243, 255),
+        backgroundColor: Color.fromARGB(128, 129, 128, 128),
         destinations: const [
           NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
           NavigationDestination(icon: Icon(Iconsax.shopping_cart), label: 'Cart'),
           NavigationDestination(icon: Icon(Iconsax.heart), label: 'Wishlist'),
-          NavigationDestination(icon: Icon(Iconsax.profile), label: 'Profil'),
+          NavigationDestination(icon: Icon(Icons.account_circle), label: 'Profil'),
         ],
         selectedIndex: _selectedIndex,
         onDestinationSelected: (int index) {

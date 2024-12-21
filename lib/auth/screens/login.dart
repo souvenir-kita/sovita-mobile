@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/register.dart';
-import 'package:sovita/display/screens/home_screen.dart';
-// import 'package:sovita/promo/screens/promo_screen.dart';
+import 'package:sovita/widget/navigation_menu.dart';
 
 void main() {
   runApp(const LoginApp());
@@ -120,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const HomeScreen()),
+                                builder: (context) => const NavigationMenu()),
                           );
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
