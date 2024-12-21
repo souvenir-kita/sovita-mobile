@@ -18,7 +18,7 @@ class PromoCard extends StatelessWidget {
   }
 
   Widget buildCard(BuildContext context, double width, double height) {
-    final isExpired = DateTime.parse(promo.fields.tanggalAkhirBerlaku).isBefore(DateTime.now());
+    final isExpired = kadaluarsa(promo.fields.tanggalAkhirBerlaku);
 
     return Opacity(
       opacity: isExpired ? 0.5 : 1.0, 
@@ -196,3 +196,12 @@ class PromoDialog extends StatelessWidget {
     );
   }
 }
+
+bool kadaluarsa(String tanggalKadaluarsa) {
+  DateTime tanggal = DateTime.parse(tanggalKadaluarsa);
+  DateTime sekarang = DateTime.now();
+
+  tanggal = DateTime(tanggal.year, tanggal.month, tanggal.day);
+  sekarang = DateTime(sekarang.year, sekarang.month, sekarang.day);
+  return (tanggal.isBefore(sekarang)) ? true : false;
+} 

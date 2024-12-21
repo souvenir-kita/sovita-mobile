@@ -82,8 +82,8 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
           TextEditingController(text: widget.promo.fields.tanggalAkhirBerlaku);
       deskripsiController =
           TextEditingController(text: widget.promo.fields.deskripsi);
-      selectedDate =
-          DateFormat('yyyy-MM-dd').parse(widget.promo.fields.tanggalAkhirBerlaku);
+      selectedDate = DateFormat('yyyy-MM-dd')
+          .parse(widget.promo.fields.tanggalAkhirBerlaku);
     });
   }
 
@@ -102,7 +102,7 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
     }
   }
 
-  bool validateEdit(){
+  bool validateEdit() {
     // validasi nama
     if (namaController.text.length > 20) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -118,7 +118,8 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
     }
     if (namaController.text.length < 4) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Nama tidak boleh kurang dari empat huruf!")),
+        const SnackBar(
+            content: Text("Nama tidak boleh kurang dari empat huruf!")),
       );
       return false;
     }
@@ -138,7 +139,8 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
     }
     if (kodeController.text.length < 4) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Kode tidak boleh kurang dari empat huruf!")),
+        const SnackBar(
+            content: Text("Kode tidak boleh kurang dari empat huruf!")),
       );
       return false;
     }
@@ -176,9 +178,12 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
       );
       return false;
     }
-    if (int.tryParse(potonganController.text)! < 0 || int.tryParse(potonganController.text)! > 100) {
+    if (int.tryParse(potonganController.text)! < 0 ||
+        int.tryParse(potonganController.text)! > 100) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Potongan tidak boleh negatif dan tidak boleh lebih dari 100!")),
+        const SnackBar(
+            content: Text(
+                "Potongan tidak boleh negatif dan tidak boleh lebih dari 100!")),
       );
       return false;
     }
@@ -186,7 +191,8 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
     // validasi deskripsi
     if (deskripsiController.text.length > 256) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Deskripsi tidak boleh lebih dari 256 huruf!")),
+        const SnackBar(
+            content: Text("Deskripsi tidak boleh lebih dari 256 huruf!")),
       );
       return false;
     }
@@ -198,7 +204,6 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
     }
 
     return true;
-
   }
 
   Future<void> saveChanges(BuildContext context) async {
@@ -258,6 +263,10 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
 
       if (context.mounted) {
         Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const PromoPage()));
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Promo berhasil dihapus!")),
         );
@@ -272,115 +281,115 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height, // Sesuaikan tinggi dengan layar
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height:
+            MediaQuery.of(context).size.height, // Sesuaikan tinggi dengan layar
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+          ),
         ),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (!isEditing)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PromoPage()));
-                    },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (!isEditing)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PromoPage()));
+                      },
+                    ),
+                  ),
+                ),
+              Stack(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(0),
+                    child: PromoCard(promo: widget.promo),
+                  ),
+                ],
+              ),
+              Container(
+                transform: Matrix4.translationValues(0, -30, 0),
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (isEditing)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.blue.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                children: [
+                                  Icon(Icons.edit,
+                                      size: 16, color: Colors.blue),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    "Mode Edit",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      _buildDetailCard(context),
+                    ],
                   ),
                 ),
               ),
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(0),
-                  child: PromoCard(promo: widget.promo),
-                ),
-              ],
-            ),
-            Container(
-              transform: Matrix4.translationValues(0, -30, 0),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (isEditing)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Row(
-                              children: [
-                                Icon(Icons.edit,
-                                    size: 16, color: Colors.blue),
-                                SizedBox(width: 4),
-                                Text(
-                                  "Mode Edit",
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    _buildDetailCard(context),
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-    floatingActionButton: isEditing
-        ? Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                onPressed: () => cancelEdit(),
-                child: const Icon(Icons.cancel),
-                backgroundColor: Colors.red,
-                tooltip: 'Cancel Changes',
-              ),
-              SizedBox(width: 10),
-              FloatingActionButton(
-                onPressed: () => saveChanges(context),
-                child: const Icon(Icons.check_box),
-                backgroundColor: Colors.blue,
-                tooltip: 'Save Changes',
-              ),
-            ],
-          )
-        : _buildActionButtons(context),
-  );
-}
-
+      floatingActionButton: isEditing
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  onPressed: () => cancelEdit(),
+                  child: const Icon(Icons.cancel),
+                  backgroundColor: Colors.red,
+                  tooltip: 'Cancel Changes',
+                ),
+                SizedBox(width: 10),
+                FloatingActionButton(
+                  onPressed: () => saveChanges(context),
+                  child: const Icon(Icons.check_box),
+                  backgroundColor: Colors.blue,
+                  tooltip: 'Save Changes',
+                ),
+              ],
+            )
+          : _buildActionButtons(context),
+    );
+  }
 
   Widget _buildDetailCard(BuildContext context) {
     return Container(

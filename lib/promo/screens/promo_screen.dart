@@ -34,8 +34,7 @@ class _PromoPageState extends State<PromoPage> {
     final filteredPromos = includeExpired
         ? promos
         : promos.where((promo) {
-            final expiryDate = DateTime.parse(promo.fields.tanggalAkhirBerlaku);
-            return expiryDate.isAfter(DateTime.now());
+            return !kadaluarsa(promo.fields.tanggalAkhirBerlaku);
           }).toList();
 
     if (filterBy != null) {
