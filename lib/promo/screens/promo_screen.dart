@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sovita/promo/screens/helper/fetch_promo.dart';
+import 'package:sovita/promo/helper/fetch_promo.dart';
 import 'package:sovita/promo/screens/promo_detail.dart';
 import 'package:sovita/promo/screens/promo_form.dart';
 import 'package:sovita/promo/widgets/promo_card.dart';
