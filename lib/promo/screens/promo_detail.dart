@@ -215,7 +215,7 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
 
     try {
       final response = await request.postJson(
-          "http://127.0.0.1:8000/promo/edit-flutter/${widget.promo.pk}/",
+          "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/promo/edit-flutter/${widget.promo.pk}/",
           jsonEncode(<String, String>{
             'nama': namaController.text,
             'kode': kodeController.text,
@@ -257,7 +257,7 @@ class _PromoDetailPageState extends State<PromoDetailPage> {
 
     try {
       final response = await request.post(
-        "http://127.0.0.1:8000/promo/delete-flutter/${widget.promo.pk}/",
+        "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/promo/delete-flutter/${widget.promo.pk}/",
         {},
       );
 

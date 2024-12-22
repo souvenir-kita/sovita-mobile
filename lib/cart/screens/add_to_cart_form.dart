@@ -30,7 +30,7 @@ class _AddToCartFormState extends State<AddToCartForm> {
 
       if (_formKey.currentState!.validate()) {
         final response = await request.postJson(
-          "http://127.0.0.1:8000/cart/add_product_to_cart_with_note/${widget.productPk}/",
+          "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/cart/add_product_to_cart_with_note/${widget.productPk}/",
           jsonEncode(<String, String>{
             'amount': _amountController.text,
             'note': _noteController.text,

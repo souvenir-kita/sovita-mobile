@@ -263,7 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String age = _ageController.text;
 
     final response = await request.postJson(
-      "http://127.0.0.1:8000/authentication/api-register/",
+      "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/authentication/api-register/",
       jsonEncode({
         "username": username,
         "password1": password1,

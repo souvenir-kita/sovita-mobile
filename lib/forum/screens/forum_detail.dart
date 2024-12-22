@@ -27,7 +27,7 @@ class ForumDetailPage extends StatefulWidget {
 class _ForumDetailPageState extends State<ForumDetailPage> {
   Future<Post> fetchPost(CookieRequest request) async {
     final response = await request.get(
-        "http://localhost:8000/forum/flutter/${widget.productId}/${widget.postId}");
+        "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/${widget.postId}");
 
     return Post.fromJson(response['data']['post']);
   }
@@ -163,7 +163,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
                                         onSubmit: (content) async {
                                           final response =
                                               await request.postJson(
-                                            "http://localhost:8000/forum/flutter/${widget.productId}/${widget.postId}/create",
+                                            "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/${widget.postId}/create",
                                             jsonEncode(<String, String>{
                                               'content': content
                                             }),
@@ -249,7 +249,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
                                     initialContent: reply.content,
                                     onSubmit: (content) async {
                                       final response = await request.postJson(
-                                        "http://localhost:8000/forum/flutter/${widget.productId}/${widget.postId}/${reply.id}/update",
+                                        "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/${widget.postId}/${reply.id}/update",
                                         jsonEncode(<String, String>{
                                           'content': content
                                         }),
@@ -282,7 +282,7 @@ class _ForumDetailPageState extends State<ForumDetailPage> {
                             },
                             onDelete: () async {
                               final response = await request.postJson(
-                                "http://localhost:8000/forum/flutter/${widget.productId}/${widget.postId}/${reply.id}/delete",
+                                "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/${widget.postId}/${reply.id}/delete",
                                 jsonEncode({}),
                               );
                               if (context.mounted) {

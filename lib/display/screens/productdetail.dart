@@ -4,6 +4,7 @@ import 'package:sovita/wishlist/screens/wishlist_form.dart';
 import 'package:sovita/forum/screens/forum.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sovita/cart/screens/add_to_cart_form.dart';
+import 'package:sovita/review/screens/review_page.dart';
 import 'package:sovita/cart/screens/cart_form.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -32,65 +33,51 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Product Details",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: const Color(0xFF1D1D1D),
+        backgroundColor: const Color(0xFFF09027),
+        title: Image.asset('lib/assets/title.png', width: 100),
+        centerTitle: true,
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Product Image with gradient overlay
+            // Hero Image Section
             Container(
-              height: 300,
+              height: 250,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+                ),
               ),
               child: Stack(
                 children: [
-                  Center(
-                    child: Image.network(
-                      "http://127.0.0.1:8000/media/${product.fields.picture}",
-                      fit: BoxFit.cover,
-                      height: double.infinity,
-                      width: double.infinity,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(Icons.image_not_supported, size: 50);
-                      },
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  // Gradient overlay at the bottom
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.6),
-                            Colors.transparent,
-                          ],
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${product.fields.picture}",
+                          fit: BoxFit.contain,
+                          height: 200,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.image_not_supported, size: 50);
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -98,28 +85,37 @@ class ProductDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            
+            // Content Section
+            Container(
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Product Name
                   Text(
                     product.fields.name,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1D1D1D),
+                    ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 20),
 
                   // Price Card
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      color: const Color(0xFFE8F5E9),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,8 +123,9 @@ class ProductDetailPage extends StatelessWidget {
                         const Text(
                           "Price",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Color(0xFF2E7D32),
                           ),
                         ),
                         Text(
@@ -137,9 +134,9 @@ class ProductDetailPage extends StatelessWidget {
                                 (Match m) => '${m[1]}.',
                               )}",
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            color: Color(0xFF2E7D32),
                           ),
                         ),
                       ],
@@ -151,28 +148,35 @@ class ProductDetailPage extends StatelessWidget {
                   const Text(
                     "Description",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Color(0xFF1D1D1D),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 12),
                   Text(
                     product.fields.description,
                     style: const TextStyle(
                       fontSize: 16,
-                      color: Colors.black54,
+                      color: Color(0xFF666666),
                       height: 1.5,
                     ),
                   ),
                   const SizedBox(height: 24),
 
-                  // Category and Location Section
+                  // Info Cards
                   Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: Column(
                       children: [
@@ -180,26 +184,46 @@ class ProductDetailPage extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
+                                color: const Color(0xFFF5F5F5),
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(Icons.category,
-                                  color: Colors.black54),
+                              child: const Icon(
+                                Icons.category_outlined,
+                                color: Color(0xFFF09027),
+                                size: 24,
+                              ),
+                              
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 16),
                             Expanded(
-                              child: Text(
-                                product.fields.category,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black87,
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Category",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color(0xFF666666),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    product.fields.category,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF1D1D1D),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
+                        const SizedBox(height: 16),
+                        const Divider(),
                         const SizedBox(height: 16),
                         // Location
                         InkWell(
@@ -207,23 +231,40 @@ class ProductDetailPage extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                padding: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
+                                  color: const Color(0xFFF5F5F5),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: const Icon(Icons.location_on,
-                                    color: Colors.blue),
+                                child: const Icon(
+                                  Icons.location_on_outlined,
+                                  color: Color(0xFFF09027),
+                                  size: 24,
+                                ),
                               ),
-                              const SizedBox(width: 12),
+                              const SizedBox(width: 16),
                               Expanded(
-                                child: Text(
-                                  product.fields.location,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.blue,
-                                    decoration: TextDecoration.underline,
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Location",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0xFF666666),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      product.fields.location,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        color: Color(0xFF1D1D1D),
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -235,33 +276,68 @@ class ProductDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
-                  // Forum Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ForumPage(productId: product.pk))),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 214, 127, 28),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  Row(
+                    children: [
+                      // Tombol Ulasan Produk
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductReviewPage(
+                                        productId: product.pk,
+                                        productName: product.fields.name,
+                                      ))),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 214, 127, 28),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
+                          ),
+                          child: const Text(
+                            "Ulasan Produk",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                        elevation: 2,
                       ),
-                      child: const Text(
-                        "Forum Diskusi",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+
+                      const SizedBox(width: 8), // Spacing antara tombol
+
+                      // Tombol Forum Diskusi
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ForumPage(productId: product.pk))),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 214, 127, 28),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
+                          ),
+                          child: const Text(
+                            "Forum Diskusi",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
 
                   const SizedBox(height: 16),
@@ -304,7 +380,11 @@ class ProductDetailPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  WishlistForm(product: product))),
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  WishlistForm(product: product))),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1D1D1D),
                         foregroundColor: Colors.white,
@@ -326,30 +406,6 @@ class ProductDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
-                  // Back Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1D1D1D),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 2,
-                      ),
-                      child: const Text(
-                        "Back to Product List",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  
                 ],
               ),
             ),
