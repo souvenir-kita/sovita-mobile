@@ -93,7 +93,7 @@ class _PromoFormState extends State<PromoForm> {
 
     try {
       final response = await request.postJson(
-          "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/promo/create-flutter/",
+          "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/promo/create-flutter/",
           jsonEncode(<String, String>{
             'nama': namaController.text,
             'kode': kodeController.text,

@@ -245,7 +245,7 @@ class _FormTambahUlasanPageState extends State<FormTambahUlasan> {
 
                             if (_formKey.currentState!.validate()) {
                               final response = await request.postJson(
-                                "http://127.0.0.1:8000/review/create-flutter/${widget.productId}/",
+                                "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/review/create-flutter/${widget.productId}/",
                                 jsonEncode({
                                   "fields": {
                                     "rating": _rating,

@@ -19,7 +19,7 @@ class _DeleteProductState extends State<DeleteProduct> {
       final request = context.read<CookieRequest>();
       final productId = widget.product.pk;
       final response = await request.post(
-        'http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/delete-flutter/$productId/',{}
+        'https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/delete-flutter/$productId/',{}
       );
 
       if (response['status'] == 'success') {
@@ -51,36 +51,92 @@ class _DeleteProductState extends State<DeleteProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Delete Product'),
+        backgroundColor: Colors.red,
+        title: Image.asset('lib/assets/title.png', width: 100),
+        centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Are you sure you want to delete the product "${widget.product.fields.name}"?',
-              style: const TextStyle(fontSize: 18),
-              textAlign: TextAlign.center,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.red, Colors.white],
+          ),
+        ),
+        child: Center(
+          child: Card(
+            margin: const EdgeInsets.all(16.0),
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await deleteProduct(context);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.warning_rounded,
+                    color: Colors.red,
+                    size: 64,
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Delete Confirmation',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red[700],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Are you sure you want to delete the product "${widget.product.fields.name}"?',
+                    style: const TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey,
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await deleteProduct(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'Delete',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              child: const Text('Delete Product'),
             ),
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Go back without deleting
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -135,7 +135,7 @@ TextField(
                               String password = _passwordController.text;
 
                               final response = await request.login(
-                                  "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/authentication/api-login/",
+                                  "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/authentication/api-login/",
                                   {
                                     'username': username,
                                     'password': password,

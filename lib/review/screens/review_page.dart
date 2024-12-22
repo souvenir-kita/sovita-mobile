@@ -291,7 +291,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
     final request = context.read<CookieRequest>();
     try {
       final response = await request.get(
-          "http://127.0.0.1:8000/review/product/${widget.productId}/reviews/");
+          "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/review/product/${widget.productId}/reviews/");
       setState(() {
         reviews = response['reviews'];
         isLoading = false;
@@ -318,7 +318,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
     try {
       // Ubah format JSON yang dikirim
       final response = await request.postJson(
-        "http://127.0.0.1:8000/review/edit-flutter/$reviewId/",
+        "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/review/edit-flutter/$reviewId/",
         jsonEncode({
           "rating": newRating,
           "deskripsi": newReview,
@@ -350,7 +350,7 @@ class _ProductReviewPageState extends State<ProductReviewPage> {
     final request = context.read<CookieRequest>();
     try {
       final response = await request.postJson(
-        "http://127.0.0.1:8000/review/delete-flutter/$reviewId/",
+        "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/review/delete-flutter/$reviewId/",
         jsonEncode({}), // Kirim body kosong karena hanya perlu ID dari URL
       );
 
