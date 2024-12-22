@@ -249,8 +249,8 @@ class _WishlistPageState extends State<WishlistPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           width: MediaQuery.of(context).size.width * 0.9,
-                          height: wishlistedProducts.length < 2
-                              ? MediaQuery.of(context).size.width * 0.9
+                          height: wishlistedProducts.length <= 2
+                              ? MediaQuery.of(context).size.width * 1.2
                               : null,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
