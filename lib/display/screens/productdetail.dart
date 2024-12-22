@@ -11,9 +11,10 @@ class ProductDetailPage extends StatelessWidget {
 
   Future<void> _launchMaps(String location) async {
     final String encodedLocation = Uri.encodeComponent(location);
-    final String locationUrl = 'https://www.google.com/maps/search/?q=$encodedLocation';
+    final String locationUrl =
+        'https://www.google.com/maps/search/?q=$encodedLocation';
     final Uri url = Uri.parse(locationUrl);
-    
+
     try {
       if (await canLaunchUrl(url)) {
         await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -182,7 +183,8 @@ class ProductDetailPage extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Icon(Icons.category, color: Colors.black54),
+                              child: const Icon(Icons.category,
+                                  color: Colors.black54),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -208,7 +210,8 @@ class ProductDetailPage extends StatelessWidget {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: const Icon(Icons.location_on, color: Colors.blue),
+                                child: const Icon(Icons.location_on,
+                                    color: Colors.blue),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
@@ -229,6 +232,40 @@ class ProductDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 32),
 
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) =>
+                            AddToCartForm(productPk: product.pk),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 127, 28),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Tambah ke Cart",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 10),
                   // Back Button
                   SizedBox(
                     width: double.infinity,
@@ -252,6 +289,7 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  
                 ],
               ),
             ),
