@@ -4,8 +4,6 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:sovita/widget/navigation_menu.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,11 +19,19 @@ class _ProductFormState extends State<ProductForm> {
   String _name = "";
   int _price = 0;
   String _description = "";
-  String _category = "";
   String _location = "";
-  String _dateCreated = "";
   File? _selectedImage;
   Uint8List? _webImage;
+
+  String? _category;
+
+  final List<String> _categories = [
+    'FnB',
+    'Dekorasi',
+    'Pakaian/Kain',
+    'Lulur & Aromateraphy',
+    'Aksesoris'
+  ];
 
   Future _pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -60,7 +66,7 @@ class _ProductFormState extends State<ProductForm> {
           'name': _name,
           'price': _price.toString(),
           'description': _description,
-          'category': _category,
+          'category': _category!,
           'location': _location,
           'image': base64Image,
         };
@@ -102,216 +108,236 @@ class _ProductFormState extends State<ProductForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add your own product here!',
-          ),
-        ),
-        backgroundColor: const Color.fromARGB(255, 29, 29, 29),
-        foregroundColor: Colors.black,
+        title: Image.asset('lib/assets/title.png', width: 100),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFF09027),
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      hintText: "Product Name",
-                      labelText: "Product Name",
-                      hintStyle: const TextStyle(color: Colors.black),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _name = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Product's name cannot be empty!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      hintText: "Price",
-                      labelText: "Price",
-                      hintStyle: const TextStyle(color: Colors.black),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _price = int.tryParse(value!) ?? 0;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Product's Price cannot be empty!";
-                      }
-                      final number = int.tryParse(value);
-                      if (number == null) {
-                        return "Product's price cannot be a string!";
-                      }
-                      if (number < 1) {
-                        return "Product's price cannot be zero or negative!";
-                      }
-                      if (number > 1000000000000) {
-                        return "Product's price cannot be too high!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      hintText: "Description",
-                      labelText: "Description",
-                      hintStyle: const TextStyle(color: Colors.black),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _description = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Product's description cannot be empty!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      hintText: "Category",
-                      labelText: "Category",
-                      hintStyle: const TextStyle(color: Colors.black),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _category = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Product's category cannot be empty!";
-                      }
-                      if (value.contains(RegExp(r'\d'))) {
-                        return "Product's category cannot contain numbers!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      hintText: "Location",
-                      labelText: "Location",
-                      hintStyle: const TextStyle(color: Colors.black),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        _location = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Product's location cannot be empty!";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    children: [
-                      MaterialButton(
-                        color: Colors.blue,
-                        child: const Text(
-                          "Pick Image",
-                          style: TextStyle(color: Colors.white),
+      body: SingleChildScrollView(
+        child: Container(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          hintText: "Product Name",
+                          labelText: "Product Name",
+                          hintStyle: const TextStyle(color: Colors.black),
+                          labelStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                         ),
-                        onPressed: _pickImage,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _name = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Product's name cannot be empty!";
+                          }
+                          return null;
+                        },
                       ),
-                      if (_selectedImage != null || _webImage != null)
-                        kIsWeb
-                            ? Image.memory(_webImage!, height: 100)
-                            : Image.file(_selectedImage!, height: 100),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(255, 29, 29, 29),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          hintText: "Price",
+                          labelText: "Price",
+                          hintStyle: const TextStyle(color: Colors.black),
+                          labelStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
                         ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _price = int.tryParse(value!) ?? 0;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Product's Price cannot be empty!";
+                          }
+                          final number = int.tryParse(value);
+                          if (number == null) {
+                            return "Product's price cannot be a string!";
+                          }
+                          if (number < 1) {
+                            return "Product's price cannot be zero or negative!";
+                          }
+                          if (number > 1000000000000) {
+                            return "Product's price cannot be too high!";
+                          }
+                          return null;
+                        },
                       ),
-                      onPressed: _submitForm,
-                      child: const Text(
-                        "Add Product",
-                        style: TextStyle(
-                          color: Colors.white,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          hintText: "Description",
+                          labelText: "Description",
+                          hintStyle: const TextStyle(color: Colors.black),
+                          labelStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _description = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Product's description cannot be empty!";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButtonFormField<String>(
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelText: "Category",
+                          labelStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        value: _category,
+                        items: [
+                          const DropdownMenuItem<String>(
+                            value: null,
+                            child: Text('Select a category'),
+                          ),
+                          ..._categories.map((String category) {
+                            return DropdownMenuItem(
+                              value: category,
+                              child: Text(category),
+                            );
+                          }).toList(),
+                        ],
+                        onChanged: (String? value) {
+                          setState(() {
+                            _category = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please select a category";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          hintText: "Location",
+                          labelText: "Location",
+                          hintStyle: const TextStyle(color: Colors.black),
+                          labelStyle: const TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _location = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Product's location cannot be empty!";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Center(
+                      child: Column(
+                        children: [
+                          MaterialButton(
+                            color: Colors.white,
+                            child: const Text(
+                              "Pick Image (1:1 is recommended)",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            onPressed: _pickImage,
+                          ),
+                          if (_selectedImage != null || _webImage != null)
+                            kIsWeb
+                                ? Image.memory(_webImage!, height: 100)
+                                : Image.file(_selectedImage!, height: 100),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFFF09027),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          onPressed: _submitForm,
+                          child: const Text(
+                            "Add Product",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
