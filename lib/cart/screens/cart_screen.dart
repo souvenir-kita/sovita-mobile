@@ -10,6 +10,9 @@ import 'package:sovita/cart/widgets/other.dart';
 import 'package:sovita/promo/helper/fetch_promo.dart';
 import 'package:sovita/promo/models/promo.dart';
 import 'package:sovita/promo/widgets/promo_card.dart';
+import 'package:sovita/promo/helper/fetch_promo.dart';
+import 'package:sovita/promo/models/promo.dart';
+import 'package:sovita/promo/widgets/promo_card.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -339,6 +342,49 @@ class _CartScreenState extends State<CartScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        if (_appliedPromo != null) ...[
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Bagian teks promo yang fleksibel
+                              Expanded(
+                                child: Text(
+                                  "Promo Applied: ${_appliedPromo!.fields.nama} (${_appliedPromo!.fields.potongan}%) ",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              GestureDetector(
+                                onTap: _cancelPromo,
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.red,
+                                  size: 24,
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                        Text(
+                          "Harga Barang: ${rp(_totalPrice)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "PPN 12%: ${rp(_totalPrice * 0.12)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
                         if (_appliedPromo != null) ...[
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
