@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:sovita/cart/screens/cart_screen.dart';
 import 'package:sovita/display/screens/homescreen.dart';
 import 'package:sovita/profil/screen/profil.dart';
+import 'package:sovita/wishlist/screens/wishlist.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -28,7 +29,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         children: [
           const HomeScreen(),
           CartScreen(), // Automatically rebuilds when navigated to
-          Container(), // Wishlist (Placeholder)
+          WishlistPage(), // Wishlist (Placeholder)
           const ProfilPage(),
         ],
       ),
