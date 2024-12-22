@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
 import 'package:sovita/forum/screens/forum.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:sovita/cart/screens/add_to_cart_form.dart';
+import 'package:sovita/cart/screens/cart_form.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -242,7 +244,8 @@ class ProductDetailPage extends StatelessWidget {
                               builder: (context) =>
                                   ForumPage(productId: product.pk))),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1D1D1D),
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 127, 28),
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -251,7 +254,42 @@ class ProductDetailPage extends StatelessWidget {
                         elevation: 2,
                       ),
                       child: const Text(
-                        "Forum Discussion",
+                        "Forum Diskusi",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) =>
+                            AddToCartForm(productPk: product.pk),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 127, 28),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Tambah ke Cart",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -285,6 +323,7 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  
                 ],
               ),
             ),

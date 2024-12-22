@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:sovita/auth/screens/login.dart';
 import 'package:sovita/promo/screens/promo_screen.dart';
 import 'package:sovita/promo/widgets/promo_card.dart';
+import 'package:sovita/display/screens/homescreen.dart';
+import 'package:sovita/widget/navigation_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +28,12 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.orange,
           ).copyWith(secondary: Colors.orange[100]),
         ),
-        home: const LoginPage(),
+        // home: const LoginPage(),
+        initialRoute: '/login',
+        routes: {
+          '/': (context) => const NavigationMenu(),
+          '/login': (context) => const LoginPage(),
+        },
       ),
     );
   }

@@ -152,12 +152,7 @@ TextField(
                                       Cookie("isAdmin", "0", null);
                                 }
                                 if (context.mounted) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NavigationMenu()),
-                                  );
+                                  Navigator.pushReplacementNamed(context, '/');
                                   ScaffoldMessenger.of(context)
                                     ..hideCurrentSnackBar()
                                     ..showSnackBar(
