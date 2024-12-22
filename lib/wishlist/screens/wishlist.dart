@@ -7,7 +7,6 @@ import 'package:sovita/widget/search_bar.dart';
 import 'package:sovita/wishlist/model/product_wishlist.dart';
 import 'package:sovita/wishlist/model/wishlisted_product.dart';
 import 'package:sovita/wishlist/screens/wishlist_edit.dart';
-import 'package:sovita/wishlist/screens/wishlist_form.dart';
 
 class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
@@ -250,8 +249,8 @@ class _WishlistPageState extends State<WishlistPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           width: MediaQuery.of(context).size.width * 0.9,
-                          height: wishlistedProducts.length < 2
-                              ? MediaQuery.of(context).size.width * 0.9
+                          height: wishlistedProducts.length <= 2
+                              ? MediaQuery.of(context).size.width * 1.2
                               : null,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,7 +352,7 @@ class _WishlistPageState extends State<WishlistPage> {
                                             alignment: Alignment.bottomCenter,
                                             child: Text(
                                               product
-                                                  .wishlist.fields.description,
+                                                  .wishlist.fields.description.toString(),
                                               style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 12),
@@ -381,6 +380,7 @@ class _WishlistPageState extends State<WishlistPage> {
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
+                                                  fetchWishlistData();
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(

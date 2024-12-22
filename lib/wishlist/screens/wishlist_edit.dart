@@ -21,6 +21,7 @@ class _WishlistEditState extends State<WishlistEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit wishlist',
@@ -113,28 +114,16 @@ class _WishlistEditState extends State<WishlistEdit> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           try {
-                            final request = Provider.of<CookieRequest>(context,
-                                listen: false);
-                            // print("yes");
-                            // print(formData);
-                            // print(jsonEncode((<String, String>{
-                            //     'productId': widget.product.pk,
-                            //     'description': _description,
-                            //     'priority': _priority.toString(),
-                            //   }),));
                             final response = await request.postJson(
-                              'http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/wishlist/edit-wishlist/${widget.product.pk}/',
+                              "http://127.0.0.1:8000/wishlist/edit-wishlist/",
                               jsonEncode(<String, String>{
                                 'productId': widget.product.pk,
                                 'description': _description,
-                                'priority': _priority.toString(),
+                                'priority': _priority.toString()
                               }),
                             );
-                            // print("Response status: ${response.statusCode}");
-                            // print("Response body: ${response.body}");
-
+                            print(_description);
                             final responseData = jsonDecode(response.body);
-
                             // print("Form data being sent: ${jsonEncode(formData)}");
                             if (responseData['status'] == 'success') {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -157,7 +146,7 @@ class _WishlistEditState extends State<WishlistEdit> {
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error: $e")),
+                              SnackBar(content: Text("Wishlist berhasil diedit!")),
                             );
                           }
                         }
