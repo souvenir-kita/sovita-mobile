@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ).copyWith(secondary: Colors.orange[100]),
         ),
         // home: const LoginPage(),
-        initialRoute: '/',
+        initialRoute: '/login',
         routes: {
           '/': (context) => const NavigationMenu(),
           '/login': (context) => const LoginPage(),

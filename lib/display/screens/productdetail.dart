@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/forum/screens/forum.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sovita/cart/screens/add_to_cart_form.dart';
 import 'package:sovita/cart/screens/cart_form.dart';
@@ -230,7 +231,39 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
+
                   const SizedBox(height: 32),
+
+                  // Forum Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ForumPage(productId: product.pk))),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 127, 28),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Forum Diskusi",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
 
                   SizedBox(
                     width: double.infinity,
@@ -238,7 +271,7 @@ class ProductDetailPage extends StatelessWidget {
                       onPressed: () => showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.vertical(top: Radius.circular(20)),
                         ),
@@ -265,7 +298,8 @@ class ProductDetailPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 10),
+                  const SizedBox(height: 16),
+
                   // Back Button
                   SizedBox(
                     width: double.infinity,
