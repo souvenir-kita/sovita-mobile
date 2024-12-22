@@ -29,28 +29,7 @@ void deleteCartProduct(CookieRequest request, String id, BuildContext context,
   }
 }
 
-void updateAmount(CookieRequest request, String id, bool increment,
-    BuildContext context, Function setState) async {
-  final endpoint =
-      "http://127.0.0.1:8000/cart/${increment ? 'inc_amount' : 'dec_amount'}/$id/";
 
-  try {
-    final response = await request.post(endpoint, {});
-
-    if (response['success'] == true) {
-      print('success');
-      setState(() {});
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Failed to update amount.")),
-      );
-    }
-  } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Error jawi: $e")),
-    );
-  }
-}
 
 void editNote(CookieRequest request, String cartProductId, String currentNote,
     BuildContext context, Function setState) {

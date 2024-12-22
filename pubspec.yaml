@@ -46,6 +46,8 @@ dependencies:
   iconsax: ^0.0.8
   url_launcher: ^6.3.1
   flutter_plugin_android_lifecycle: ^2.0.24
+  webview_flutter: ^4.10.0
+  landing_page: ^0.0.10
 
 dev_dependencies:
   flutter_test:

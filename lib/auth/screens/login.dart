@@ -60,12 +60,13 @@ class _LoginPageState extends State<LoginPage> {
                   // Logo
                   Image.asset(
                     'lib/assets/title.png',
-                    height: 100, 
+                    height: 100,
                     fit: BoxFit.contain,
                   ),
-                  const SizedBox(height: 20.0), 
+                  const SizedBox(height: 20.0),
                   Card(
-                    color: const Color.fromARGB(255, 48, 48, 48).withOpacity(0.7), 
+                    color:
+                        const Color.fromARGB(255, 48, 48, 48).withOpacity(0.7),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
@@ -84,41 +85,42 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           const SizedBox(height: 30.0),
-TextField(
-  controller: _usernameController,
-  style: const TextStyle(
-    color: Colors.white, 
-  ),
-  decoration: const InputDecoration(
-    labelText: 'Username',
-    labelStyle: TextStyle(
-      color: Colors.white, 
-    ),
-    hintText: 'Enter your username',
-    hintStyle: TextStyle(
-      color: Colors.white70,
-    ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-    ),
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: 12.0,
-      vertical: 8.0,
-    ),
-  ),
-),
+                          TextField(
+                            controller: _usernameController,
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                            decoration: const InputDecoration(
+                              labelText: 'Username',
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              hintText: 'Enter your username',
+                              hintStyle: TextStyle(
+                                color: Colors.white70,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.0)),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12.0,
+                                vertical: 8.0,
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 12.0),
                           TextField(
                             controller: _passwordController,
                             decoration: const InputDecoration(
                               labelText: 'Password',
                               labelStyle: TextStyle(
-                                color: Colors.white, 
+                                color: Colors.white,
                               ),
                               hintText: 'Enter your password',
-    hintStyle: TextStyle(
-      color: Colors.white70,
-    ),
+                              hintStyle: TextStyle(
+                                color: Colors.white70,
+                              ),
                               border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12.0)),
@@ -186,14 +188,15 @@ TextField(
                               minimumSize: const Size(double.infinity, 50),
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,
-                              padding: const EdgeInsets.symmetric(vertical: 16.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
                             ),
                             child: const Text(
                               'Login',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
-                              ),
+                            ),
                           ),
                           const SizedBox(height: 36.0),
                           GestureDetector(
