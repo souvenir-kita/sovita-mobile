@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:sovita/display/screens/homescreen.dart';
 
 class AddToCartForm extends StatefulWidget {
   final String productPk;
@@ -16,45 +21,48 @@ class _AddToCartFormState extends State<AddToCartForm> {
   final TextEditingController _noteController = TextEditingController();
 
   bool _isSubmitting = false;
-  
-  Future<void> _submitForm() async {
+
+  Future<void> _submitForm(CookieRequest request) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isSubmitting = true;
       });
 
-      final url = Uri.parse(
-          'http://10.0.2.2:8000/cart/add_with_note/${widget.productPk}/');
-
-      final response = await http.post(
-        url,
-        body: {
-          'cart_amount': _amountController.text,
-          'cart_note': _noteController.text,
-        },
-      );
+      if (_formKey.currentState!.validate()) {
+        final response = await request.postJson(
+          "http://127.0.0.1:8000/cart/add_product_to_cart_with_note/${widget.productPk}/",
+          jsonEncode(<String, String>{
+            'amount': _amountController.text,
+            'note': _noteController.text,
+          }),
+        );
+        if (context.mounted) {
+          if (response['status'] == 'success') {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Produk berhasil dimasukkan ke keranjang!"),
+            ));
+            Navigator.popUntil(context, ModalRoute.withName('/'));
+            // Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => HomeScreen()),
+            // );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Terdapat kesalahan, silakan coba lagi."),
+            ));
+          }
+        }
+      }
 
       setState(() {
         _isSubmitting = false;
       });
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        // Success
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Product added to cart!')),
-        );
-        Navigator.of(context).pop(); // Close the modal
-      } else {
-        // Error
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to add product: ${response.body}')),
-        );
-      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -105,7 +113,7 @@ class _AddToCartFormState extends State<AddToCartForm> {
               const SizedBox(height: 20),
               // Submit Button
               ElevatedButton(
-                onPressed: _isSubmitting ? null : _submitForm,
+                onPressed: _isSubmitting ? null : () => _submitForm(request),
                 child: _isSubmitting
                     ? const CircularProgressIndicator(color: Colors.white)
                     : const Text("Submit"),

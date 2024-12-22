@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
 import 'package:sovita/cart/screens/add_to_cart_form.dart';
+import 'package:sovita/cart/screens/cart_form.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;

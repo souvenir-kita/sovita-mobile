@@ -4,7 +4,7 @@ import 'package:sovita/adminview/models/product.dart';
 Future<List<Product>> fetchProduct(CookieRequest request) async {
   try {
     // web: 127.0.0.1
-    final response = await request.get('http://10.0.2.2:8000/adminview/json/');
+    final response = await request.get('http://127.0.0.1:8000/adminview/json/');
 
     if (response is List) {
       List<Product> listProduct = [];
@@ -45,7 +45,7 @@ Future<List<Product>> fetchSearchProduct(CookieRequest request, String? search) 
 Future<Product> fetchProductDetails(CookieRequest request, String productID) async {
   try {
     // web: 127.0.0.1
-    final response = await request.get('http://10.0.2.2:8000/adminview/json/$productID/');
+    final response = await request.get('http://127.0.0.1:8000/adminview/json/$productID/');
 
     if (response is List && response.isNotEmpty) {
       return Product.fromJson(response[0]);

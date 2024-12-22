@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                       // gunakan URL http://10.0.2.2/
                       // web: http://127.0.0.1:8000/
                       final response = await request
-                          .login("http://10.0.2.2:8000/authentication/api-login/", {
+                          .login("http://127.0.0.1:8000/authentication/api-login/", {
                         'username': username,
                         'password': password,
                       });
@@ -117,11 +117,12 @@ class _LoginPageState extends State<LoginPage> {
                           request.cookies['isAdmin'] = Cookie("isAdmin", "0", null);
                         }
                         if (context.mounted) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const NavigationMenu()),
-                          );
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const NavigationMenu()),
+                          // );
+                          Navigator.pushReplacementNamed(context, '/');
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(
