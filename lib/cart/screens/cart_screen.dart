@@ -328,7 +328,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         Text(
-                          "PPN 12%: ${rp(_totalPrice + _totalPrice * 0.12)}",
+                          "PPN 12%: ${rp(_totalPrice * 0.12)}",
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.black,
