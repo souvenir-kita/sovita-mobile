@@ -1,4 +1,7 @@
 # Sovita (Souvenir Kita): Our Souvenirs, Your Unforgettable Memories! 🏝️⛅
+
+[![Build status](https://build.appcenter.ms/v0.1/apps/a6c99962-953b-4545-a866-c930e52aded2/branches/main/badge)](https://appcenter.ms)
+
 ---
 
 ## Anggota Kelompok D-06 TK PBP 2024/2025 🧑
@@ -74,3 +77,10 @@ Pengguna umum dapat melihat produk yang tersedia dalam aplikasi dan melakukan fi
 5. Menerima data JSON dari respons web service.
 6. Mengonversi json yang diterima dari web service menjadi model yang telah dibuat pada langkah kedua.
 7. Menggunakan widget FutureBuilder untuk memuat data secara asinkron di aplikasi.
+
+## Link Deployment Aplikasi 🔗🚀
+Aplikasi ini di-deploy pada platform Microsoft AppCenter ([appcenter.ms](https://appcenter.ms)) dan dapat diunduh melalui tautan berikut:\
+[SOVITA: Souvenir Kita Mobile App](https://install.appcenter.ms/orgs/sovitaapp/apps/sovita/distribution_groups/public/releases/1)
+
+### ⛅🏝️ Our Souvenirs, Your Unforgettable Memories 🏝️⛅
+![UltraMiamiMusicGIF](https://github.com/user-attachments/assets/f85c8603-9108-49d6-877b-ff1c62d82cd2)
