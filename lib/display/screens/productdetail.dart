@@ -301,6 +301,31 @@ class ProductDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  WishlistForm(product: product))),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1D1D1D),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Add to Wishlist",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
                   // Back Button
                   SizedBox(
                     width: double.infinity,
@@ -324,29 +349,7 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>  WishlistForm(product: product))),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1D1D1D),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 2,
-                      ),
-                      child: const Text(
-                        "Add to Wishlist",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  
                 ],
               ),
             ),

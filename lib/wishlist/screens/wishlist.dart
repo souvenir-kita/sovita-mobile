@@ -33,6 +33,7 @@ class _WishlistPageState extends State<WishlistPage> {
     final request = Provider.of<CookieRequest>(context, listen: false);
     setState(() {
       _wishlistedProducts = fetchWislist(request);
+      _selectedCategory = "Semua";
     });
   }
 
@@ -168,12 +169,10 @@ class _WishlistPageState extends State<WishlistPage> {
                   children: [
                     const SizedBox(height: 10),
                     const SizedBox(child: SearchBarForm()),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     if (snapshot.data!.isEmpty)
                       SizedBox(
-                        height: MediaQuery.of(context)
-                            .size
-                            .height,
+                        height: MediaQuery.of(context).size.height,
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 20),
                           child: Column(
@@ -249,11 +248,14 @@ class _WishlistPageState extends State<WishlistPage> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           width: MediaQuery.of(context).size.width * 0.9,
+                          height: wishlistedProducts.length < 2
+                              ? MediaQuery.of(context).size.width * 0.9
+                              : null,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Padding(
-                                padding: EdgeInsets.fromLTRB(12, 10, 0, 0),
+                                padding: EdgeInsets.fromLTRB(9, 10, 9, 10),
                                 child: Text(
                                   "Wishlist Anda",
                                   style: TextStyle(
@@ -261,18 +263,21 @@ class _WishlistPageState extends State<WishlistPage> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               const SizedBox(height: 10),
                               GridView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
+                                padding:
+                                    const EdgeInsets.fromLTRB(12, 10, 12, 0),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 10.0,
                                   mainAxisSpacing: 10.0,
-                                  childAspectRatio: 3 / 4,
+                                  childAspectRatio: 3 / 5,
                                 ),
                                 itemCount: getFilteredProducts().length,
                                 itemBuilder: (_, index) {
@@ -282,6 +287,7 @@ class _WishlistPageState extends State<WishlistPage> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(15),
                                     ),
+                                    // height: MediaQuery.of(context).size.width * (4 / 3) / 2,
                                     child: Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Column(
@@ -350,31 +356,24 @@ class _WishlistPageState extends State<WishlistPage> {
                                                   color: Colors.black,
                                                   fontSize: 12),
                                               textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Text(
-                                              "Prioritas: ${priorityLevels[product.wishlist.fields.priority]}",
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 12),
-                                              textAlign: TextAlign.center,
+                                              maxLines: 4,
                                             ),
                                           ),
                                           const Spacer(),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               ElevatedButton(
                                                 onPressed: () {
                                                   removeFromWishlist(
                                                       product.product.pk);
                                                 },
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: const CircleBorder()
+                                                ),
                                                 child: const Icon(
-                                                    Icons.remove_circle_outline,
-                                                    size: 16),
+                                                    Icons.remove_circle,
+                                                    size: 16,
+                                                    color: Colors.red),
                                               ),
                                               ElevatedButton(
                                                 onPressed: () {
@@ -388,8 +387,35 @@ class _WishlistPageState extends State<WishlistPage> {
                                                     ),
                                                   );
                                                 },
-                                                child: const Icon(Icons.info,
-                                                    size: 16),
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: const CircleBorder()
+                                                ),
+                                                child: const Icon(
+                                                  Icons.edit,
+                                                  size: 16,
+                                                  color: Colors.yellowAccent,
+                                                ),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProductDetailPage(
+                                                              product: product
+                                                                  .product),
+                                                    ),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: const CircleBorder()
+                                                ),
+                                                child: const Icon(
+                                                  Icons.info,
+                                                  size: 16,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ],
                                           ),

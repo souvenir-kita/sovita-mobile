@@ -25,7 +25,7 @@ class _WishlistFormState extends State<WishlistForm> {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Add your own product here!',
+            'Tambah wishlist',
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 29, 29, 29),
@@ -154,7 +154,7 @@ class _WishlistFormState extends State<WishlistForm> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                     content: Text(
-                                        "Error: ${responseData['message'] ?? 'Failed to add product'}")),
+                                        "Error: ${responseData['message'] ?? 'Failed to add wishlist'}")),
                               );
                             }
                           } catch (e) {
