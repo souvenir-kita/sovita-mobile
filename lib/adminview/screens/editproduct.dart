@@ -121,34 +121,45 @@ class _EditProductFormState extends State<EditProductForm> {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              final response = await request.postJson(
-                                'http://127.0.0.1:8000/adminview/update-flutter/${widget.product.pk}/',
-                                jsonEncode(<String, dynamic>{
-                                  'name': _name,
-                                  'price': _price,
-                                  'description': _description,
-                                  'category': _category,
-                                  'location': _location,
-                                }),
-                              );
-                              if (response['status'] == 'success') {
-                                // ignore: use_build_context_synchronously
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Product updated successfully!'),
-                                    backgroundColor: Colors.green,
-                                  ),
+                              final Map<String, dynamic> formData = {
+                                'name': _name,
+                                'price': _price.toString(),
+                                'description': _description,
+                                'category': _category,
+                                'location': _location,
+                              };
+
+                              try {
+                                final response = await request.post(
+                                  'https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/update-flutter/${widget.product.pk}/',
+                                  jsonEncode(formData)
                                 );
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NavigationMenu()),
-                                );
-                              } else {
-                                // ignore: use_build_context_synchronously
+
+                                if (response['status'] == 'success') {
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Product updated successfully!'),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => NavigationMenu()),
+                                  );
+                                } else {
+                                  // ignore: use_build_context_synchronously
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Error: ${response['message'] ?? 'Failed to update product'}'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              } catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Failed to update'),
+                                  SnackBar(
+                                    content: Text('Error: $e'),
                                     backgroundColor: Colors.red,
                                   ),
                                 );

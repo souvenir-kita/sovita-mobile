@@ -3,7 +3,8 @@ import 'package:sovita/adminview/models/product.dart';
 
 Future<List<Product>> fetchProduct(CookieRequest request) async {
   try {
-    final response = await request.get('http://127.0.0.1:8000/adminview/json/');
+    // web: 127.0.0.1
+    final response = await request.get('https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/json/');
 
     if (response is List) {
       List<Product> listProduct = [];
@@ -23,7 +24,7 @@ Future<List<Product>> fetchProduct(CookieRequest request) async {
 
 Future<List<Product>> fetchSearchProduct(CookieRequest request, String? search) async {
   try {
-    final response = await request.get('http://127.0.0.1:8000/search-flutter/$search');
+    final response = await request.get('https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/search-flutter/$search');
 
     if (response is List) {
       List<Product> listProduct = [];
@@ -43,7 +44,8 @@ Future<List<Product>> fetchSearchProduct(CookieRequest request, String? search) 
 
 Future<Product> fetchProductDetails(CookieRequest request, String productID) async {
   try {
-    final response = await request.get('http://127.0.0.1:8000/adminview/json/$productID/');
+    // web: 127.0.0.1
+    final response = await request.get('https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/json/$productID/');
 
     if (response is List && response.isNotEmpty) {
       return Product.fromJson(response[0]);

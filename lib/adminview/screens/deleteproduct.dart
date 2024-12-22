@@ -19,7 +19,7 @@ class _DeleteProductState extends State<DeleteProduct> {
       final request = context.read<CookieRequest>();
       final productId = widget.product.pk;
       final response = await request.post(
-        'http://127.0.0.1:8000/adminview/delete-flutter/$productId/',{}
+        'https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/delete-flutter/$productId/',{}
       );
 
       if (response['status'] == 'success') {

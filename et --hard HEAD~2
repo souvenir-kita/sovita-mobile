@@ -1,0 +1,463 @@
+[33mcommit b14d910b9740be151ebed1eaf200a3e897e3090d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 22:45:07 2024 +0700
+
+    changes: tambah bg untuk register dan login oa
+
+[33mcommit fe06baa90685d6078e39aa4cf68cdd83ca66ee96[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 22:12:28 2024 +0700
+
+    changes: tambah bg untuk register dan login oa
+
+[33mcommit 869fdfcd4cf8e5b9d2312f9422f4da34f20581a1[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 08ae054 bb63a55
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 21:23:37 2024 +0700
+
+    Merge branch 'diskon' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit 08ae05443a07b8d611c124c186a020f0d2b72536[m
+Merge: 93cbb04 45f1758
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sat Dec 21 20:41:27 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into display
+
+[33mcommit 93cbb044e9d2631a909a909f72d3c42162021afc[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sat Dec 21 20:41:18 2024 +0700
+
+    feat: Adminview and Homescreen Update
+
+[33mcommit 45f17584693f6890f3858d9bbed7d2463d54cf54[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 18:04:18 2024 +0700
+
+    changes: mengubah gambar semua kategori
+
+[33mcommit b727e8f4149f4d36dd76037d0aae80c08d4f4852[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 17:47:31 2024 +0700
+
+    changes: mengubah layout product card widget supaya tidak overflow di semua device
+
+[33mcommit bb63a554875a534b7c4755585a2cf7dd1283b85b[m[33m ([m[1;31morigin/diskon[m[33m)[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 16:33:17 2024 +0700
+
+    refactor: relocated promo helper to helper *yang tadi ga keadd oa
+
+[33mcommit 7d572ee0b3b7edbc172cc2652b239c879402de3e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 16:24:56 2024 +0700
+
+    refactor: relocated promo helper to helper
+
+[33mcommit 11919a6d806b85aa65189e7ebf11c0e6e6dcb439[m
+Merge: e597129 1372aed
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 13:22:17 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into diskon
+
+[33mcommit 1372aed1e9e35991cceed4044844e3702e017767[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 13:21:04 2024 +0700
+
+    fix: fix gradient yang ga sampe bawah pada beberapa device di profie page
+
+[33mcommit e597129dfcead741b5e850173e7d30fbb789fc4e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 13:10:24 2024 +0700
+
+    feat: overhaul form untuk create a promo
+
+[33mcommit d0c5e5deab6c7dec5ffd8808e7bd6341a21034b4[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 21 11:39:25 2024 +0700
+
+    feat: add validation untuk edit
+
+[33mcommit be811219b8813ef3998a0f632623cf7421f02a0e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Fri Dec 20 20:56:11 2024 +0700
+
+    changes: overhaul edit and view detail, to do: add validation
+
+[33mcommit c0196ed1b8b40cd17102f8c651f4b4ca4b5c0351[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Fri Dec 20 18:45:03 2024 +0700
+
+    changes: overhaul filter kategori dan bg
+
+[33mcommit 4470cbe4caf2671017cb79a566ccf23ce1ed8a59[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Fri Dec 20 08:12:43 2024 +0700
+
+    feat: add filter & overhaul card
+
+[33mcommit 2b0baed3645c69aa4de5300d47b4ce68cd29fb86[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:40:31 2024 +0700
+
+    refactor: FYP -> HomeScreen
+
+[33mcommit 57ebc219c5dd28c8325c3b58e456b2c276449f3e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:34:23 2024 +0700
+
+    refactor: ngerapihin login.dart
+
+[33mcommit 439878000766bab66fd734fb8037e6343a7149ea[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:33:23 2024 +0700
+
+    changes: Ubah switch page jadi pake IndexedStack biar ga perlu reload lagi tiap balik
+
+[33mcommit 9102850867aa56e94c74bb2b862a0026c884294e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:32:01 2024 +0700
+
+    kayaknya yang ini harus dipush deh biar nanti ga ada conflict
+
+[33mcommit fd98ada50a3da42bff56279a2d8e1237213b0bea[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:30:47 2024 +0700
+
+    feat: profile page :<
+
+[33mcommit 81f9939541d3fa1cbda3835a2207ba7747ed0f2e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:30:14 2024 +0700
+
+    refactor: refactor main.dart
+
+[33mcommit af0277123d8c8ccdca2fd8e9b7f07f3d50047fd3[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 22:28:32 2024 +0700
+
+    changes: delay UI rendering until data popular product fetched
+
+[33mcommit f25e8df81eb5e46216e23c53892d1f5dffd44027[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 20:19:03 2024 +0700
+
+    changes: mengubah expaded menjadi singlechildscrollview untuk fyp
+
+[33mcommit 3253c0c1c7f053fd9930407fb41c3ec70f74dda8[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Thu Dec 19 18:55:59 2024 +0700
+
+    feat: filter bedasarkan harga, waktu dibuat, alfabet
+
+[33mcommit c88c2c6d9ff5bf94ee6e0abfc3ca9c09d8b71649[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sun Dec 15 16:13:54 2024 +0700
+
+    feat: searchbar functionality
+
+[33mcommit 75a032696ce9a1dff587428fd0e4fe5f6336f896[m
+Merge: ada3897 eceef50
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sun Dec 15 12:35:04 2024 +0700
+
+    Merge pull request #2 from souvenir-kita/display
+    
+    Display
+
+[33mcommit eceef50fbc3d4a90a48539a0d77010dfecb49123[m[33m ([m[1;31morigin/display[m[33m)[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sun Dec 15 12:30:44 2024 +0700
+
+    feat: Adminview and Homescreen Update
+
+[33mcommit b981376b62b6c7eadfa4acec5d305cc3010f10e0[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sun Dec 15 12:29:18 2024 +0700
+
+    feat: Adminview and Homescreen Update
+
+[33mcommit 905ef78cf74611c0417eff2903beddabf5611bbe[m
+Merge: 1a05671 ada3897
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sat Dec 14 19:26:38 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into display
+
+[33mcommit 1a056719b337c820580e295951ab28cd4cd84e49[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sat Dec 14 19:26:34 2024 +0700
+
+    feat: Adminview and Display (- Upload image)
+
+[33mcommit ada3897f1a5dc75260b0bab328eba457dea438d0[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 14 19:11:37 2024 +0700
+
+    change: merubah icon kategori semua
+
+[33mcommit 598abf911ee2510fa3f6232ff3b0f997fbbc4485[m
+Merge: 49339eb e505caa
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 14 18:53:19 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into diskon
+
+[33mcommit 49339eba940ccc7043d7f2a8ac22e345595b158e[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sat Dec 14 18:51:28 2024 +0700
+
+    homescreen
+
+[33mcommit cefdd782708501e009602b86da9ff118fa29cd9e[m
+Merge: 6780554 e505caa
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Sat Dec 14 13:19:14 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into display
+
+[33mcommit 6780554b23eaa9a14486f9a65670423d6dcf188e[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 9 18:35:06 2024 +0700
+
+    feat: Adminview and Display (- Upload image)
+
+[33mcommit e505caaf5e83fdee3ae38d9cb68e59adcc2db084[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 17:57:20 2024 +0700
+
+    fix: fix navigation on promo title
+
+[33mcommit 7e2b61c172cb1414606cb1d05fd9becb78e0e15e[m
+Merge: 804a87d 2a1e8cc
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 17:51:39 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into diskon
+
+[33mcommit 2a1e8ccbefb9bded8fa9669b64c5f4ccd1acc8dd[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 17:49:43 2024 +0700
+
+    feat: melerai pertengkaran
+
+[33mcommit 33fe6a4af5192eb52bd06a3378b8add7ac2241ea[m
+Merge: c28d967 31ca517
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 17:36:11 2024 +0700
+
+    Merge branch 'diskon' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit c28d9679d6fd12f533029d820485a0f656c7f539[m
+Merge: 8efe076 cb85443
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 17:10:09 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit 8efe0769c5ea2f70e44737a4a05dd2028f4a92c6[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 17:01:46 2024 +0700
+
+    feat: add left drawer
+
+[33mcommit 8ceba759291bec699fe5a532661b57041e620f8f[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 16:59:17 2024 +0700
+
+    feat: add left drawer
+
+[33mcommit cb85443d035f95fa83b8226c9c79f62a5de496cc[m
+Merge: 5f2a6d4 3c3f90b
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 9 13:00:30 2024 +0700
+
+    Merge pull request #1 from souvenir-kita/display
+    
+    Display
+
+[33mcommit 3c3f90bf544a2fdb5416f315425e95bb45899771[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 9 12:58:51 2024 +0700
+
+    feat
+
+[33mcommit b1ea66cece3097a87310355ec88fe10d18a554d3[m
+Merge: a82db58 5f2a6d4
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 9 11:28:50 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit a82db58df181429070dd3bb7476b406390394059[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 9 11:28:48 2024 +0700
+
+    feat
+
+[33mcommit 804a87dc42f53447ffeb6a24e42abd48f3355efd[m
+Merge: 31ca517 5f2a6d4
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 11:14:25 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile into diskon
+
+[33mcommit 5f2a6d4d914f0ecccb135ba280dacc1428f50812[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 11:10:28 2024 +0700
+
+    feat: set cookies based on role upon login
+
+[33mcommit 0410fa3f31222809bda71f9755e851dd42822fe4[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 11:09:34 2024 +0700
+
+    feat: clear cookies upon logout
+
+[33mcommit 05798f9173c0013ff3410c28f06777d679ed4ac3[m
+Merge: 384393d 35836c7
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 9 09:55:42 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit 35836c7dae4aa18d98b2a56ff0d0eff4a120c555[m
+Merge: db2a5e8 c89c873
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 08:01:49 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit db2a5e80ac3f7f2f8ad0d5956d84ddca0239e712[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Mon Dec 9 08:01:08 2024 +0700
+
+    feat: add role selection, address, phone number, age fields for user registration
+
+[33mcommit 31ca5173a59560b13cc1a24a381bb302c862a8d6[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sun Dec 8 17:46:44 2024 +0700
+
+    feat: update and delete promo
+
+[33mcommit 1b6849355906391538a124252c9dbc10d4afcc65[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sun Dec 8 15:40:58 2024 +0700
+
+    feat: create promo
+
+[33mcommit 1491dd185967e90ea2b3c901c50d8593f22b4b44[m
+Author: rafliesa <muhammadrafli1579@gmail.com>
+Date:   Sun Dec 8 14:31:54 2024 +0700
+
+    feat: retrieve promo
+
+[33mcommit c89c8737c9020f80a1dab7745d0d50ea8ab32598[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Wed Dec 4 20:27:48 2024 +0700
+
+    failed fetch
+
+[33mcommit 2aea5c4c7781d2b8c238ca88ae9c5dbfdb079246[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Wed Dec 4 19:29:04 2024 +0700
+
+    to main
+
+[33mcommit 384393d71c5a283278c8d030f180e2ccde54d8e4[m
+Merge: 833b0a1 04f1d8b
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Wed Dec 4 15:59:22 2024 +0700
+
+    Merge branch 'main' of https://github.com/souvenir-kita/sovita-mobile
+
+[33mcommit 833b0a12f47256814c7b0963d8c9007358a2dc37[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Wed Dec 4 15:59:17 2024 +0700
+
+    feat: HomeScreen Init
+
+[33mcommit 04f1d8bbfec35e68e58c9d5a07384e4f44771707[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Wed Dec 4 15:58:59 2024 +0700
+
+    clean dir
+
+[33mcommit cc5ead5bdd87edb16de97239cb8bde706d7eaab2[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Wed Dec 4 15:45:12 2024 +0700
+
+    cuma ganti get
+
+[33mcommit 479268dcb098b5c21738ef42a895357f0dd6c884[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Wed Dec 4 15:44:11 2024 +0700
+
+    cart success fetch
+
+[33mcommit aa7beeed1da38e0c7f87c75ec7e440c327cd5009[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Tue Dec 3 22:50:47 2024 +0700
+
+    fetch cart product setengah jadi
+
+[33mcommit 10125d4eb11f28ff65151aeb1742f972b9f9c4ea[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Tue Dec 3 21:50:13 2024 +0700
+
+    implement logout
+
+[33mcommit f91a1fee478259e9561934eadd323b7337e607fd[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Tue Dec 3 20:28:04 2024 +0700
+
+    done auth
+
+[33mcommit 2b81f0905750dcae7c1ecb79c3f7c917e0aa6c5b[m
+Author: MaulRai <muhammadraihanofc@gmail.com>
+Date:   Tue Dec 3 17:55:44 2024 +0700
+
+    add model
+
+[33mcommit fd96124de0a23bb20592feaa267e613169bca63d[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Dec 2 16:18:09 2024 +0700
+
+    feat: HomeScreen Init
+
+[33mcommit 5ac9453625b2910c85a1f79717e52d4647efa10d[m
+Author: Muhammad Rafli Esa Pradana <137233017+rafliesa@users.noreply.github.com>
+Date:   Mon Nov 25 16:04:44 2024 +0700
+
+    Update README.md
+
+[33mcommit 222a127d6cf29c68da62af804232ad091152ccee[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Nov 25 15:43:50 2024 +0700
+
+    Update README.md
+
+[33mcommit b0814fb9787325b80f2ca96b13801fe526d88d6d[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Nov 25 15:42:57 2024 +0700
+
+    Update README.md
+
+[33mcommit 86cc2f99588a5688d8934258ceee13e88e552123[m
+Author: arzakaraffan <arzakaraffan@gmail.com>
+Date:   Mon Nov 25 15:36:55 2024 +0700
+
+    Update README.md
+
+[33mcommit 7f38df2902b7ebcee99b33f160a53116ed9c6de8[m
+Author: Wisnu Nugroho <wisnunugroho614@gmail.com>
+Date:   Mon Nov 25 14:56:35 2024 +0700
+
+    feat: initialize flutter app
+
+[33mcommit 14d33db95af064e3fe8c7c8ceda866210679adfc[m
+Author: Muhammad Rafli Esa Pradana <137233017+rafliesa@users.noreply.github.com>
+Date:   Mon Nov 18 16:24:24 2024 +0700
+
+    Initial commit

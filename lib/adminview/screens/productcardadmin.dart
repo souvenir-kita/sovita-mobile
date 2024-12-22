@@ -42,7 +42,7 @@ class _ProductCardState extends State<ProductCard> {
                 child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12.0)),
                   child: Image.network(
-                    "http://127.0.0.1:8000/media/${widget.product.fields.picture}",
+                    "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${widget.product.fields.picture}",
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(

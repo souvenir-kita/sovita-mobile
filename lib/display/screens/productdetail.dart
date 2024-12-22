@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/forum/screens/forum.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:sovita/cart/screens/add_to_cart_form.dart';
+import 'package:sovita/cart/screens/cart_form.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
@@ -55,7 +58,7 @@ class ProductDetailPage extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
-                          "http://127.0.0.1:8000/media/${product.fields.picture}",
+                          "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${product.fields.picture}",
                           fit: BoxFit.contain,
                           height: 200,
                           errorBuilder: (context, error, stackTrace) {
@@ -80,7 +83,7 @@ class ProductDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-
+            
             // Content Section
             Container(
               padding: const EdgeInsets.all(24.0),
@@ -189,6 +192,7 @@ class ProductDetailPage extends StatelessWidget {
                                 color: Color(0xFFF09027),
                                 size: 24,
                               ),
+                              
                             ),
                             const SizedBox(width: 16),
                             Expanded(
@@ -267,7 +271,74 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
+
                   const SizedBox(height: 32),
+
+                  // Forum Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ForumPage(productId: product.pk))),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 127, 28),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Forum Diskusi",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) =>
+                            AddToCartForm(productPk: product.pk),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            const Color.fromARGB(255, 214, 127, 28),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Tambah ke Cart",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
 
                 ],
               ),

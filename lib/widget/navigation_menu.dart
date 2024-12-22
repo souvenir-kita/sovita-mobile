@@ -13,23 +13,27 @@ class NavigationMenu extends StatefulWidget {
 
 class _NavigationMenuState extends State<NavigationMenu> {
   int _selectedIndex = 0;
-
-  final List<Widget> _pages = [
-    HomeScreen(), 
-    CartScreen(), 
-    Container(), // Wishlist (Placeholder, replace later)
-    ProfilPage(),
-  ];
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: [
+          const HomeScreen(),
+          CartScreen(), // Automatically rebuilds when navigated to
+          Container(), // Wishlist (Placeholder)
+          const ProfilPage(),
+        ],
       ),
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Color.fromARGB(128, 129, 128, 128),
+        backgroundColor: const Color.fromARGB(128, 129, 128, 128),
         destinations: const [
           NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
           NavigationDestination(icon: Icon(Iconsax.shopping_cart), label: 'Cart'),
@@ -40,6 +44,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
         onDestinationSelected: (int index) {
           setState(() {
             _selectedIndex = index;
+            _pageController.jumpToPage(index); // Navigate to the selected page
           });
         },
       ),

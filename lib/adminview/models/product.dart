@@ -41,6 +41,8 @@ class Fields {
     String location;
     DateTime dateCreated;
 
+    double get priceAsDouble {return double.parse(price);}
+
     Fields({
         required this.name,
         required this.price,
