@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/wishlist/screens/wishlist_form.dart';
 import 'package:sovita/forum/screens/forum.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sovita/cart/screens/add_to_cart_form.dart';
+import 'package:sovita/review/screens/review_page.dart';
 import 'package:sovita/cart/screens/cart_form.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -274,33 +276,68 @@ class ProductDetailPage extends StatelessWidget {
 
                   const SizedBox(height: 32),
 
-                  // Forum Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ForumPage(productId: product.pk))),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 214, 127, 28),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  Row(
+                    children: [
+                      // Tombol Ulasan Produk
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductReviewPage(
+                                        productId: product.pk,
+                                        productName: product.fields.name,
+                                      ))),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 214, 127, 28),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
+                          ),
+                          child: const Text(
+                            "Ulasan Produk",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                        elevation: 2,
                       ),
-                      child: const Text(
-                        "Forum Diskusi",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+
+                      const SizedBox(width: 8), // Spacing antara tombol
+
+                      // Tombol Forum Diskusi
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ForumPage(productId: product.pk))),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 214, 127, 28),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 2,
+                          ),
+                          child: const Text(
+                            "Forum Diskusi",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
 
                   const SizedBox(height: 16),
@@ -330,6 +367,35 @@ class ProductDetailPage extends StatelessWidget {
                       ),
                       child: const Text(
                         "Tambah ke Cart",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  WishlistForm(product: product))),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1D1D1D),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Add to Wishlist",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
