@@ -135,25 +135,46 @@ class _CartScreenState extends State<CartScreen> {
 
                         // Cache the products
                         if (productsSnapshot.hasData) {
-                          final products =
-                              productsSnapshot.data as List<Product>;
+                          final products = productsSnapshot.data!;
+                          print("Fetched products length: ${products.length}");
+                          
+                          // Clear cache before updating
+                          _productCache.clear();
+                          
+                          // Update cache with proper string conversion
                           for (var i = 0; i < cartProducts.length; i++) {
-                            _productCache[cartProducts[i]
-                                .fields
-                                .product
-                                .toString()] = products[i];
+                            final productId = cartProducts[i].fields.product;
+                            print("Caching product ID: $productId");
+                            _productCache[productId.toString()] = products[i];
                           }
+                          
+                          // Debug print cache contents
+                          print("Cache keys: ${_productCache.keys.toList()}");
                         }
-
-                        final sortedCartProducts =
-                            _sortCartProducts(cartProducts);
+                        
+                        final sortedCartProducts = _sortCartProducts(cartProducts);
 
                         return ListView.builder(
                           itemCount: sortedCartProducts.length,
                           itemBuilder: (context, index) {
                             final cartProduct = sortedCartProducts[index];
-                            final product = _productCache[
-                                cartProduct.fields.product.toString()]!;
+                            final productId = cartProduct.fields.product.toString();
+                            print("Accessing cache with key: $productId");
+                            final product = _productCache[productId];
+
+                            if (product == null) {
+                              print("Product not found in cache for ID: $productId");
+                              // Instead of showing loading, let's show the raw ID to debug
+                              return Card(
+                                color: Colors.white70,
+                                margin: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  title: Text("Product ID: $productId"),
+                                  subtitle: Text("Cache keys: ${_productCache.keys.toList()}"),
+                                ),
+                              );
+                            }
+                            
                             final double totalProductPrice =
                                 product.fields.priceAsDouble *
                                     cartProduct.fields.amount;
