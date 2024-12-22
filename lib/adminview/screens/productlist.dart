@@ -5,6 +5,7 @@ import 'package:sovita/adminview/models/product.dart';
 import 'package:sovita/adminview/helper/fetch_product.dart';
 import 'package:sovita/display/screens/productdetail.dart';
 import 'package:sovita/adminview/screens/editproduct.dart';
+import 'package:sovita/adminview/screens/deleteproduct.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -14,6 +15,7 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
+  
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -89,13 +91,38 @@ class _ProductListState extends State<ProductList> {
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                      Center(
-                          child: IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.white),
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProductForm(product: snapshot.data![index])));
-                        },
-                      ))
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, // Atur posisi elemen dalam baris
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.white),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProductForm(
+                                      product: snapshot.data![index]),
+                                ),
+                              );
+                            },
+                          ),
+                          const SizedBox(
+                              width: 10), // Tambahkan jarak antara ikon
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DeleteProduct(
+                                      product: snapshot.data![index]),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      )
                     ],
                   ),
                   onTap: () {

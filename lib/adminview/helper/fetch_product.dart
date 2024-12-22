@@ -21,6 +21,26 @@ Future<List<Product>> fetchProduct(CookieRequest request) async {
   }
 }
 
+Future<List<Product>> fetchSearchProduct(CookieRequest request, String? search) async {
+  try {
+    final response = await request.get('http://127.0.0.1:8000/search-flutter/$search');
+
+    if (response is List) {
+      List<Product> listProduct = [];
+      for (var d in response) {
+        if (d != null) {
+          listProduct.add(Product.fromJson(d));
+        }
+      }
+      return listProduct;
+    } else {
+      throw Exception("Unexpected response format: Expected a list.");
+    }
+  } catch (e) {
+    throw Exception("Failed to fetch products: $e");
+  }
+}
+
 Future<Product> fetchProductDetails(CookieRequest request, String productID) async {
   try {
     final response = await request.get('http://127.0.0.1:8000/adminview/json/$productID/');

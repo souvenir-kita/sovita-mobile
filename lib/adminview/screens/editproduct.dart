@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/adminview/models/product.dart';
-import 'package:sovita/adminview/screens/adminmain.dart';
+import 'package:sovita/widget/navigation_menu.dart';
 
 class EditProductForm extends StatefulWidget {
   final Product product; // Use Product directly.
@@ -140,7 +140,7 @@ class _EditProductFormState extends State<EditProductForm> {
                         );
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => AdminPage()),
+                          MaterialPageRoute(builder: (context) => NavigationMenu()),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
