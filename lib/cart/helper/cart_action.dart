@@ -6,7 +6,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 void deleteCartProduct(CookieRequest request, String id, BuildContext context,
     Function setState) async {
   final endpoint =
-      "http://127.0.0.1:8000/cart/delete_cart_product_flutter/$id/";
+      "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/cart/delete_cart_product_flutter/$id/";
 
   try {
     final response = await request.post(endpoint, {});
@@ -32,7 +32,7 @@ void deleteCartProduct(CookieRequest request, String id, BuildContext context,
 void updateAmount(CookieRequest request, String id, bool increment,
     BuildContext context, Function setState) async {
   final endpoint =
-      "http://127.0.0.1:8000/cart/${increment ? 'inc_amount' : 'dec_amount'}/$id/";
+      "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/cart/${increment ? 'inc_amount' : 'dec_amount'}/$id/";
 
   try {
     final response = await request.post(endpoint, {});
@@ -89,7 +89,7 @@ void editNote(CookieRequest request, String cartProductId, String currentNote,
 
               try {
                 final response = await request.postJson(
-                  "http://127.0.0.1:8000/cart/update_note/$cartProductId/",
+                  "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/cart/update_note/$cartProductId/",
                   jsonEncode(<String, String>{'note': newNote}),
                 );
 

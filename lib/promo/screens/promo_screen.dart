@@ -62,7 +62,7 @@ class _PromoPageState extends State<PromoPage> {
 
   Future<void> deletePromo(CookieRequest request, String promoId) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/promo/delete-flutter/$promoId/',
+      'https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/promo/delete-flutter/$promoId/',
       {},
     );
 
@@ -82,127 +82,129 @@ class _PromoPageState extends State<PromoPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: SafeArea( 
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFFF09027), Color(0xFF8CBEAA)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        padding: const EdgeInsets.all(4),
-        child: FutureBuilder(
-          future: getSortedPromos(request),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return FilterDialog(
-                                    filterBy: filterBy,
-                                    isAscending: isAscending,
-                                    includeExpired: includeExpired,
-                                    onFilterChanged: (newFilterBy, newIsAscending) {
-                                      setState(() {
-                                        filterBy = newFilterBy;
-                                        isAscending = newIsAscending;
-                                      });
-                                    },
-                                    onExpiredChanged: (value) {
-                                      setState(() {
-                                        includeExpired = value;
-                                      });
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                            child: Row(
-                              children: [
-                                const Icon(Icons.filter_list),
-                                const SizedBox(width: 8),
-                                Text(filterButtonText),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const PromoForm()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              padding: const EdgeInsets.all(12),
-                            ),
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                if (snapshot.data.length == 0)
-                  const EmptyPromoMessage()
-                else
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 4 / 2,
+          padding: const EdgeInsets.all(4),
+          child: FutureBuilder(
+            future: getSortedPromos(request),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PromoDetailPage(promo: snapshot.data[index]),
-                                ),
-                              );
-                            },
-                            child: PromoCard(
-                              promo: snapshot.data[index],
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return FilterDialog(
+                                      filterBy: filterBy,
+                                      isAscending: isAscending,
+                                      includeExpired: includeExpired,
+                                      onFilterChanged: (newFilterBy, newIsAscending) {
+                                        setState(() {
+                                          filterBy = newFilterBy;
+                                          isAscending = newIsAscending;
+                                        });
+                                      },
+                                      onExpiredChanged: (value) {
+                                        setState(() {
+                                          includeExpired = value;
+                                        });
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.filter_list),
+                                  const SizedBox(width: 8),
+                                  Text(filterButtonText),
+                                ],
+                              ),
                             ),
-                          );
-                        },
-                      ),
+                            const SizedBox(width: 8),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const PromoForm()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                padding: const EdgeInsets.all(12),
+                              ),
+                              child: const Icon(Icons.add),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-              ],
-            );
-          },
+                  const SizedBox(height: 16),
+                  if (snapshot.data.length == 0)
+                    const EmptyPromoMessage()
+                  else
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 4 / 2,
+                          ),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PromoDetailPage(promo: snapshot.data[index]),
+                                  ),
+                                );
+                              },
+                              child: PromoCard(
+                                promo: snapshot.data[index],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -214,14 +216,12 @@ class EmptyPromoMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
+    return Expanded(
+      child:
         Text(
           'Belum ada data Promo.',
           style: TextStyle(fontSize: 20, color: Color(0xff59A5D8)),
         ),
-        SizedBox(height: 8),
-      ],
     );
   }
 }
