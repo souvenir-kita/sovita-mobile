@@ -62,7 +62,7 @@ class _PromoPageState extends State<PromoPage> {
 
   Future<void> deletePromo(CookieRequest request, String promoId) async {
     final response = await request.post(
-      'http://127.0.0.1:8000/promo/delete-flutter/$promoId/',
+      'http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/promo/delete-flutter/$promoId/',
       {},
     );
 

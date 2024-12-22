@@ -95,7 +95,7 @@ class _CartFormPageState extends State<CartFormPage> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
-                          "http://127.0.0.1:8000/cart/add_product_to_cart_with_note/${widget.productPk}/",
+                          "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/cart/add_product_to_cart_with_note/${widget.productPk}/",
                           jsonEncode(<String, String>{
                             'amount': _amount,
                             'note': _note,

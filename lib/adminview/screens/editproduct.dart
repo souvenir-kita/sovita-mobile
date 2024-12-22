@@ -124,7 +124,7 @@ class _EditProductFormState extends State<EditProductForm> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       final response = await request.postJson(
-                        'http://127.0.0.1:8000/adminview/update-flutter/${widget.product.pk}/',
+                        'http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/update-flutter/${widget.product.pk}/',
                         jsonEncode(<String, dynamic>{
                           'name': _name,
                           'price': _price,

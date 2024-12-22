@@ -65,7 +65,7 @@ class _ProductFormState extends State<ProductForm> {
           'image': base64Image,
         };
 
-        final uri = Uri.parse("http://127.0.0.1:8000/adminview/create-flutter/");
+        final uri = Uri.parse("http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/adminview/create-flutter/");
         final response = await http.post(
           uri,
           headers: <String, String>{

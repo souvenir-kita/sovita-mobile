@@ -64,7 +64,7 @@ class _ProductListState extends State<ProductList> {
                     children: [
                       Center(
                         child: Image.network(
-                          "http://127.0.0.1:8000/media/${snapshot.data![index].fields.picture}",
+                          "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${snapshot.data![index].fields.picture}",
                           height: 100,
                           width: 100,
                           fit: BoxFit

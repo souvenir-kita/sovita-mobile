@@ -165,7 +165,7 @@ class ProfilPage extends StatelessWidget {
                             iconColor: const Color.fromARGB(255, 248, 0, 0),
                             onTap: () async {
                               final response = await request.logout(
-                                  "http://127.0.0.1:8000/authentication/api-logout/");
+                                  "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/authentication/api-logout/");
                               String message = response["message"];
                               if (context.mounted) {
                                 if (response['status']) {

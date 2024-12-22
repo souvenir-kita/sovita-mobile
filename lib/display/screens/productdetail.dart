@@ -56,7 +56,7 @@ class ProductDetailPage extends StatelessWidget {
                 children: [
                   Center(
                     child: Image.network(
-                      "http://127.0.0.1:8000/media/${product.fields.picture}",
+                      "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${product.fields.picture}",
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity,

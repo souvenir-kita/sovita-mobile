@@ -110,7 +110,7 @@ class _CartScreenState extends State<CartScreen> {
                                 margin: const EdgeInsets.all(8.0),
                                 child: ListTile(
                                   leading: Image.network(
-                                    "http://127.0.0.1:8000/media/${product.fields.picture}",
+                                    "http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${product.fields.picture}",
                                     width: 50,
                                     height: 50,
                                     fit: BoxFit.cover,

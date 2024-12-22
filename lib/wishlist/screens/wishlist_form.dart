@@ -123,7 +123,7 @@ class _WishlistFormState extends State<WishlistForm> {
                             //     'priority': _priority.toString(),
                             //   }),));
                             final response = await request.postJson(
-                              'http://127.0.0.1:8000/wishlist/add-wishlist/${widget.product.pk}/',
+                              'http://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/wishlist/add-wishlist/${widget.product.pk}/',
                               jsonEncode(<String, String>{
                                 'productId': widget.product.pk,
                                 'description': _description,
