@@ -158,41 +158,43 @@ class ProfilPage extends StatelessWidget {
                             onTap: () {},
                           ),
                           const SizedBox(height: 10),
-                          _ProfileListTile(
-                            icon: Icons.logout,
-                            title: "Keluar",
-                            textColor: const Color.fromARGB(255, 248, 0, 0),
-                            iconColor: const Color.fromARGB(255, 248, 0, 0),
-                            onTap: () async {
-                              final response = await request.logout(
-                                  "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/authentication/api-logout/");
-                              String message = response["message"];
-                              if (context.mounted) {
-                                if (response['status']) {
-                                  request.cookies.remove("isAdmin");
-                                  String uname = response["username"];
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content:
-                                        Text("$message Sampai jumpa, $uname."),
-                                  ));
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(message),
-                                    ),
-                                  );
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 200),
+                            child: _ProfileListTile(
+                              icon: Icons.logout,
+                              title: "Keluar",
+                              textColor: const Color.fromARGB(255, 248, 0, 0),
+                              iconColor: const Color.fromARGB(255, 248, 0, 0),
+                              onTap: () async {
+                                final response = await request.logout(
+                                    "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/authentication/api-logout/");
+                                String message = response["message"];
+                                if (context.mounted) {
+                                  if (response['status']) {
+                                    request.cookies.remove("isAdmin");
+                                    String uname = response["username"];
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          Text("$message Sampai jumpa, $uname."),
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage()),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(message),
+                                      ),
+                                    );
+                                  }
                                 }
-                              }
-                            },
+                              },
+                            ),
                           ),
-                          const SizedBox(height: 20),
                         ],
                       ),
                     ),

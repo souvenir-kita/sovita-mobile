@@ -70,90 +70,92 @@ class HomeScreen extends StatelessWidget {
                     end: Alignment.bottomCenter,
                   ),
                 ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    SizedBox(child: SearchBarForm()),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(3, 20, 3, 20),
-                      child: Container(
+                child: SafeArea(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      SizedBox(child: SearchBarForm()),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(3, 20, 3, 20),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Color(0x80D9D9D9),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: MediaQuery.of(context).size.height * 0.13,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: List.generate(items.length, (index) {
+                                return Expanded(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 5),
+                                    child: GridItem(item: items[index]),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Container(
                         decoration: const BoxDecoration(
                           color: Color(0x80D9D9D9),
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         width: MediaQuery.of(context).size.width * 0.9,
-                        height: MediaQuery.of(context).size.height * 0.13,
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: List.generate(items.length, (index) {
-                              return Expanded(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: GridItem(item: items[index]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(12, 10, 0, 0),
+                              child: Text(
+                                "Produk Populer",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
-                              );
-                            }),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0x80D9D9D9),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 10, 0, 0),
-                            child: Text(
-                              "Produk Populer",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
                               ),
                             ),
-                          ),
-                          SizedBox(height: 10),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10.0,
-                              mainAxisSpacing: 10.0,
-                              childAspectRatio: 3 / 4,
+                            SizedBox(height: 10),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 10.0,
+                                childAspectRatio: 3 / 4,
+                              ),
+                              itemCount: products.length,
+                              itemBuilder: (_, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProductDetailPage(
+                                            product: products[index]),
+                                      ),
+                                    );
+                                  },
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: ProductCard(product: products[index]),
+                                );
+                              },
                             ),
-                            itemCount: products.length,
-                            itemBuilder: (_, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductDetailPage(
-                                          product: products[index]),
-                                    ),
-                                  );
-                                },
-                                borderRadius: BorderRadius.circular(15),
-                                child: ProductCard(product: products[index]),
-                              );
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

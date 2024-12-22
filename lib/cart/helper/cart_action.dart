@@ -23,9 +23,10 @@ void deleteCartProduct(CookieRequest request, String id, BuildContext context,
       );
     }
   } catch (e) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Error: $e")),
-    );
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(content: Text("Error: $e")),
+    // );
+    print(e);
   }
 }
 

@@ -79,77 +79,79 @@ class _AllProductsState extends State<AllProducts> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.05,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+        child: SafeArea(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    child: const SearchBarForm(fromAllProductScreen: true),
-                  ),
-                ],
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      child: const SearchBarForm(fromAllProductScreen: true),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: FutureBuilder<List<Product>>(
-                future: _products,
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (!snapshot.hasData || snapshot.data.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        "Tidak ada produk ditemukan.",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    );
-                  } else {
-                    // Apply filter after fetching the products
-                    List<Product> filteredProducts =
-                        _applyFilter(snapshot.data);
-
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10.0,
-                        mainAxisSpacing: 10.0,
-                        childAspectRatio: 3 / 4,
-                      ),
-                      itemCount: filteredProducts.length,
-                      itemBuilder: (_, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductDetailPage(
-                                  product: filteredProducts[index],
+              Expanded(
+                child: FutureBuilder<List<Product>>(
+                  future: _products,
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (!snapshot.hasData || snapshot.data.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          "Tidak ada produk ditemukan.",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      );
+                    } else {
+                      // Apply filter after fetching the products
+                      List<Product> filteredProducts =
+                          _applyFilter(snapshot.data);
+          
+                      return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                          childAspectRatio: 3 / 4,
+                        ),
+                        itemCount: filteredProducts.length,
+                        itemBuilder: (_, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailPage(
+                                    product: filteredProducts[index],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          borderRadius: BorderRadius.circular(15),
-                          child: ProductCard(product: filteredProducts[index]),
-                        );
-                      },
-                    );
-                  }
-                },
+                              );
+                            },
+                            borderRadius: BorderRadius.circular(15),
+                            child: ProductCard(product: filteredProducts[index]),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
