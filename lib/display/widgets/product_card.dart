@@ -33,6 +33,7 @@ class _ProductCardState extends State<ProductCard> {
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
+            mainAxisSize: MainAxisSize.min, 
             children: [
               AspectRatio(
                 aspectRatio: 1,
@@ -45,7 +46,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   child: Image.network(
                     "http://127.0.0.1:8000/media/${widget.product.fields.picture}",
-                    fit: BoxFit.cover, // Potong gambar agar memenuhi ukuran
+                    fit: BoxFit.cover, 
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(
                         Icons.image_not_supported,
@@ -61,25 +62,26 @@ class _ProductCardState extends State<ProductCard> {
                 ),
               ),
               const SizedBox(height: 8),
-              Container(
-                child: Text(
-                  widget.product.fields.name,
-                  maxLines: 2, // Membatasi nama produk agar maksimal 2 baris
-                  overflow: TextOverflow.ellipsis, // Teks yang melebihi 2 baris akan dipotong
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
+              Expanded(
+                child: Container(
+                  child: Text(
+                    widget.product.fields.name,
+                    maxLines: 2, 
+                    overflow: TextOverflow.ellipsis, 
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
               const SizedBox(height: 4),
-              // Menjaga agar harga selalu berada di posisi yang konsisten
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  "Price: Rp${widget.product.fields.price}",
+                  "Rp${widget.product.fields.price}",
                   style: const TextStyle(color: Colors.black, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),

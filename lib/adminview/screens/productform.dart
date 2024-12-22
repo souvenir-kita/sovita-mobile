@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sovita/widget/navigation_menu.dart';
+import 'package:http/http.dart' as http;
 
 class ProductForm extends StatefulWidget {
   const ProductForm({super.key});
@@ -23,19 +25,81 @@ class _ProductFormState extends State<ProductForm> {
   String _location = "";
   String _dateCreated = "";
   File? _selectedImage;
+  Uint8List? _webImage;
 
   Future _pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
 
-    setState(() {
-      _selectedImage = File(image.path);
-    });
+    if (kIsWeb) {
+      var bytes = await image.readAsBytes();
+      setState(() {
+        _webImage = bytes;
+      });
+    } else {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
+
+  Future<void> _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      if (_selectedImage == null && _webImage == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please select an image")),
+        );
+        return;
+      }
+
+      try {
+        final bytes = kIsWeb ? _webImage! : await _selectedImage!.readAsBytes();
+        final base64Image = base64Encode(bytes);
+        
+        final Map<String, String> formData = {
+          'name': _name,
+          'price': _price.toString(),
+          'description': _description,
+          'category': _category,
+          'location': _location,
+          'image': base64Image,
+        };
+
+        final uri = Uri.parse("http://127.0.0.1:8000/adminview/create-flutter/");
+        final response = await http.post(
+          uri,
+          headers: <String, String>{
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: formData,
+        );
+
+        final responseData = jsonDecode(response.body);
+
+        if (responseData['status'] == 'success') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Product successfully added!")),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const NavigationMenu()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Error: ${responseData['message'] ?? 'Failed to add product'}")),
+          );
+        }
+      } catch (e) {
+        print("Error details: $e");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error: $e")),
+        );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -210,19 +274,21 @@ class _ProductFormState extends State<ProductForm> {
                   ),
                 ),
                 Center(
-                  child: MaterialButton(
-                    color: Colors.red,
-                    child: const Text(
-                      "Pick Image",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                  child: Column(
+                    children: [
+                      MaterialButton(
+                        color: Colors.blue,
+                        child: const Text(
+                          "Pick Image",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        onPressed: _pickImage,
                       ),
-                    ),
-                    onPressed: () {
-                      _pickImage();
-                    },
+                      if (_selectedImage != null || _webImage != null)
+                        kIsWeb
+                            ? Image.memory(_webImage!, height: 100)
+                            : Image.file(_selectedImage!, height: 100),
+                    ],
                   ),
                 ),
                 Align(
@@ -231,52 +297,11 @@ class _ProductFormState extends State<ProductForm> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(
-                            const Color.fromARGB(255, 29, 29, 29)),
+                        backgroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 29, 29, 29),
+                        ),
                       ),
-                      onPressed: () async {
-                        // Cek apakah gambar sudah dipilih
-                        if (_selectedImage == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content:
-                                    Text("Belum ada Gambar yang di-input")),
-                          );
-                          return; // Jika gambar belum dipilih, hentikan eksekusi lebih lanjut
-                        }
-
-                        if (_formKey.currentState!.validate()) {
-                          final response = await request.postJson(
-                            "http://127.0.0.1:8000/adminview/create-flutter/",
-                            jsonEncode(<String, String>{
-                              'name': _name,
-                              'price': _price.toString(),
-                              'description': _description,
-                              'category': _category,
-                              'location': _location,
-                            }),
-                          );
-                          if (context.mounted) {
-                            if (response['status'] == 'success') {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text("Mood baru berhasil disimpan!"),
-                              ));
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const NavigationMenu()),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                    "Terdapat kesalahan, silakan coba lagi."),
-                              ));
-                            }
-                          }
-                        }
-                      },
+                      onPressed: _submitForm,
                       child: const Text(
                         "Add Product",
                         style: TextStyle(
