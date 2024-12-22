@@ -5,7 +5,7 @@ import 'package:sovita/wishlist/model/wishlisted_product.dart';
 
 Future<List<WishlistedProduct>> fetchWislist(CookieRequest request) async {
   try {
-    final response = await request.get('http://127.0.0.1:8000/wishlist/json/');
+    final response = await request.get('https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/wishlist/json/');
     if (response is List) {
       List<WishlistedProduct> listWishlistedProducts = [];
       List<WishlistedProduct> highPriorityProducts = [];

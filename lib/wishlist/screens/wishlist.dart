@@ -42,7 +42,7 @@ class _WishlistPageState extends State<WishlistPage> {
     try {
       final request = Provider.of<CookieRequest>(context, listen: false);
       await request.post(
-        'http://127.0.0.1:8000/wishlist/remove-wishlist/$productId/',
+        'https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/wishlist/remove-wishlist/$productId/',
         {},
       );
       fetchWishlistData();
@@ -59,7 +59,7 @@ class _WishlistPageState extends State<WishlistPage> {
   Future<List<WishlistedProduct>> fetchWislist(CookieRequest request) async {
     try {
       final response =
-          await request.get('http://127.0.0.1:8000/wishlist/json/');
+          await request.get('https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/wishlist/json/');
       if (response is List) {
         List<WishlistedProduct> listWishlistedProducts = [];
         List<WishlistedProduct> highPriorityProducts = [];
@@ -302,7 +302,7 @@ class _WishlistPageState extends State<WishlistPage> {
                                                 Radius.circular(15.0),
                                               ),
                                               child: Image.network(
-                                                "http://127.0.0.1:8000/media/${product.product.fields.picture}",
+                                                "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/media/${product.product.fields.picture}",
                                                 fit: BoxFit.cover,
                                                 errorBuilder: (context, error,
                                                     stackTrace) {

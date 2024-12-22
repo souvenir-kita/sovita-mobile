@@ -115,7 +115,7 @@ class _WishlistEditState extends State<WishlistEdit> {
                         if (_formKey.currentState!.validate()) {
                           try {
                             final response = await request.postJson(
-                              "http://127.0.0.1:8000/wishlist/edit-wishlist/",
+                              "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/edit-wishlist/",
                               jsonEncode(<String, String>{
                                 'productId': widget.product.pk,
                                 'description': _description,
