@@ -30,7 +30,7 @@ class _ForumPageState extends State<ForumPage> {
 
   Future<List<Post>> fetchPosts(CookieRequest request) async {
     final response = await request
-        .get("http://localhost:8000/forum/flutter/${widget.productId}");
+        .get("https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}");
 
     List<Post> posts = (response['data']['posts'] as List)
         .map((d) => Post.fromJson(d))
@@ -83,7 +83,7 @@ class _ForumPageState extends State<ForumPage> {
                           initialContent: "",
                           onSubmit: (title, content) async {
                             final response = await request.postJson(
-                              "http://localhost:8000/forum/flutter/${widget.productId}/create",
+                              "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/create",
                               jsonEncode(<String, String>{
                                 'title': title,
                                 'content': content,
@@ -257,7 +257,7 @@ class _ForumPageState extends State<ForumPage> {
                                 initialContent: posts[index].content,
                                 onSubmit: (title, content) async {
                                   final response = await request.postJson(
-                                    "http://localhost:8000/forum/flutter/${widget.productId}/${posts[index].id}/update",
+                                    "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/${posts[index].id}/update",
                                     jsonEncode(<String, String>{
                                       'title': title,
                                       'content': content,
@@ -287,7 +287,7 @@ class _ForumPageState extends State<ForumPage> {
                         },
                         onDelete: () async {
                           final response = await request.postJson(
-                            "http://localhost:8000/forum/flutter/${widget.productId}/${posts[index].id}/delete",
+                            "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/forum/flutter/${widget.productId}/${posts[index].id}/delete",
                             jsonEncode({}),
                           );
                           if (context.mounted) {
