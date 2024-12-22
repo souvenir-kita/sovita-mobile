@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sovita/adminview/models/product.dart';
+import 'package:sovita/forum/screens/forum.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -9,9 +10,10 @@ class ProductDetailPage extends StatelessWidget {
 
   Future<void> _launchMaps(String location) async {
     final String encodedLocation = Uri.encodeComponent(location);
-    final String locationUrl = 'https://www.google.com/maps/search/?q=$encodedLocation';
+    final String locationUrl =
+        'https://www.google.com/maps/search/?q=$encodedLocation';
     final Uri url = Uri.parse(locationUrl);
-    
+
     try {
       if (await canLaunchUrl(url)) {
         await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -180,7 +182,8 @@ class ProductDetailPage extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Icon(Icons.category, color: Colors.black54),
+                              child: const Icon(Icons.category,
+                                  color: Colors.black54),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -206,7 +209,8 @@ class ProductDetailPage extends StatelessWidget {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: const Icon(Icons.location_on, color: Colors.blue),
+                                child: const Icon(Icons.location_on,
+                                    color: Colors.blue),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
@@ -225,7 +229,38 @@ class ProductDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
+
                   const SizedBox(height: 32),
+
+                  // Forum Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ForumPage(productId: product.pk))),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1D1D1D),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 2,
+                      ),
+                      child: const Text(
+                        "Forum Discussion",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
 
                   // Back Button
                   SizedBox(
