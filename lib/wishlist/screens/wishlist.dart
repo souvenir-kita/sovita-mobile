@@ -6,6 +6,8 @@ import 'package:sovita/display/screens/productdetail.dart';
 import 'package:sovita/widget/search_bar.dart';
 import 'package:sovita/wishlist/model/product_wishlist.dart';
 import 'package:sovita/wishlist/model/wishlisted_product.dart';
+import 'package:sovita/wishlist/screens/wishlist_edit.dart';
+import 'package:sovita/wishlist/screens/wishlist_form.dart';
 
 class WishlistPage extends StatefulWidget {
   const WishlistPage({super.key});
@@ -361,6 +363,8 @@ class _WishlistPageState extends State<WishlistPage> {
                                           ),
                                           const Spacer(),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               ElevatedButton(
                                                 onPressed: () {
@@ -368,8 +372,8 @@ class _WishlistPageState extends State<WishlistPage> {
                                                       product.product.pk);
                                                 },
                                                 style: ElevatedButton.styleFrom(
-                                                  shape: const CircleBorder()
-                                                ),
+                                                    shape:
+                                                        const CircleBorder()),
                                                 child: const Icon(
                                                     Icons.remove_circle,
                                                     size: 16,
@@ -380,16 +384,15 @@ class _WishlistPageState extends State<WishlistPage> {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ProductDetailPage(
-                                                              product: product
-                                                                  .product),
-                                                    ),
+                                                        builder: (context) =>
+                                                            WishlistEdit(
+                                                                product: product
+                                                                    .product)),
                                                   );
                                                 },
                                                 style: ElevatedButton.styleFrom(
-                                                  shape: const CircleBorder()
-                                                ),
+                                                    shape:
+                                                        const CircleBorder()),
                                                 child: const Icon(
                                                   Icons.edit,
                                                   size: 16,
@@ -409,8 +412,8 @@ class _WishlistPageState extends State<WishlistPage> {
                                                   );
                                                 },
                                                 style: ElevatedButton.styleFrom(
-                                                  shape: const CircleBorder()
-                                                ),
+                                                    shape:
+                                                        const CircleBorder()),
                                                 child: const Icon(
                                                   Icons.info,
                                                   size: 16,

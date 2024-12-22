@@ -5,15 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:sovita/adminview/models/product.dart';
 import 'package:sovita/widget/navigation_menu.dart';
 
-class WishlistForm extends StatefulWidget {
+class WishlistEdit extends StatefulWidget {
   final Product product;
-  const WishlistForm({super.key, required this.product});
+  const WishlistEdit({super.key, required this.product});
 
   @override
-  State<WishlistForm> createState() => _WishlistFormState();
+  State<WishlistEdit> createState() => _WishlistEditState();
 }
 
-class _WishlistFormState extends State<WishlistForm> {
+class _WishlistEditState extends State<WishlistEdit> {
   final _formKey = GlobalKey<FormState>();
   String _description = "";
   // ignore: prefer_final_fields
@@ -23,7 +23,7 @@ class _WishlistFormState extends State<WishlistForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah wishlist',
+        title: const Text('Edit wishlist',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: const Color.fromARGB(255, 29, 29, 29),
         foregroundColor: Colors.black,
@@ -123,7 +123,7 @@ class _WishlistFormState extends State<WishlistForm> {
                             //     'priority': _priority.toString(),
                             //   }),));
                             final response = await request.postJson(
-                              'http://127.0.0.1:8000/wishlist/add-wishlist/${widget.product.pk}/',
+                              'http://127.0.0.1:8000/wishlist/edit-wishlist/${widget.product.pk}/',
                               jsonEncode(<String, String>{
                                 'productId': widget.product.pk,
                                 'description': _description,
@@ -163,7 +163,7 @@ class _WishlistFormState extends State<WishlistForm> {
                         }
                       },
                       child: const Text(
-                        "Add to Wishlist",
+                        "Edit Wishlist",
                         style: TextStyle(
                           color: Colors.white,
                         ),
