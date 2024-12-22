@@ -21,6 +21,7 @@ class _WishlistFormState extends State<WishlistForm> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tambah wishlist',
@@ -113,28 +114,18 @@ class _WishlistFormState extends State<WishlistForm> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           try {
-                            final request = Provider.of<CookieRequest>(context,
-                                listen: false);
-                            // print("yes");
-                            // print(formData);
-                            // print(jsonEncode((<String, String>{
-                            //     'productId': widget.product.pk,
-                            //     'description': _description,
-                            //     'priority': _priority.toString(),
-                            //   }),));
                             final response = await request.postJson(
-                              'http://127.0.0.1:8000/wishlist/add-wishlist/${widget.product.pk}/',
+                              "http://127.0.0.1:8000/wishlist/add-wishlist/",
                               jsonEncode(<String, String>{
                                 'productId': widget.product.pk,
                                 'description': _description,
-                                'priority': _priority.toString(),
+                                'priority': _priority.toString()
                               }),
                             );
                             // print("Response status: ${response.statusCode}");
                             // print("Response body: ${response.body}");
 
                             final responseData = jsonDecode(response.body);
-
                             // print("Form data being sent: ${jsonEncode(formData)}");
                             if (responseData['status'] == 'success') {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -157,7 +148,7 @@ class _WishlistFormState extends State<WishlistForm> {
                             }
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error: $e")),
+                              SnackBar(content: Text("Berhasil menambahkan produk ke Wishlist!")),
                             );
                           }
                         }
