@@ -321,7 +321,21 @@ class _CartScreenState extends State<CartScreen> {
                           const SizedBox(height: 10),
                         ],
                         Text(
-                          "Total: ${rp(_totalPrice)}",
+                          "Harga Barang: ${rp(_totalPrice)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "PPN 12%: ${rp(_totalPrice + _totalPrice * 0.12)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Total: ${rp(_totalPrice + _totalPrice * 0.12)}",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -367,7 +381,7 @@ class PromoBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       icon: const Icon(Icons.local_offer),
-      label: const Text("View Available Promos"),
+      label: const Text("Lihat Promo yang Tersedia"),
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -423,7 +437,7 @@ class _PromoList extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
-              "Available Promos",
+              "Promo",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
