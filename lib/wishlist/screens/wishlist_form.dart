@@ -115,7 +115,7 @@ class _WishlistFormState extends State<WishlistForm> {
                         if (_formKey.currentState!.validate()) {
                           try {
                             final response = await request.postJson(
-                              "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/wishlist/add-wishlist/",
+                              "https://muhammad-rafli33-souvenirkita.pbp.cs.ui.ac.id/add-wishlist/",
                               jsonEncode(<String, String>{
                                 'productId': widget.product.pk,
                                 'description': _description,
